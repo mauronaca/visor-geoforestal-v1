@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+  <title>Visor Geoforestal</title>
+
+  <!--Fuentes iconos de Google-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  
+  <!--Chroma js-->
+  <script src="https://unpkg.com/chroma-js"></script>
+
+  <!--Jquery-->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+
+  
+  <!--Plantilla de estilos y paquete de Leaflet-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/> 
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin="">
+  </script>
+
+  <!--Paquete de Leaflet para los WMS-->
+  <script src="https://unpkg.com/leaflet.wms@0.2.0/dist/leaflet.wms.js"></script>
+  
+  <!--Paquete de Leaflet para coordenadas-->
+  <script src="https://unpkg.com/leaflet.coordinates@0.1.5/dist/Leaflet.Coordinates-0.1.5.src.js"></script>
+
+  <!--Paquete de Leaflet para el menu de control-->
+  <script src = "https://unpkg.com/leaflet.control.layers.tree@1.1.0/L.Control.Layers.Tree.js"></script>
+  <link rel = "stylesheet" href = "https://unpkg.com/leaflet.control.layers.tree@1.1.0/L.Control.Layers.Tree.css"/>
+  
+  <!--Paquete Georaster.js-->
+  <script src="https://unpkg.com/georaster"></script>
+  <!--Paquetes de Leaflet para soportar geotiff-->
+  <script src="https://unpkg.com/proj4"></script>
+  <script src="https://unpkg.com/georaster-layer-for-leaflet@latest"></script>
+
+  <!--Plantilla de estilos-->
+  <link rel = "stylesheet" href = "./css/style.css" />
+
+</head>
+
+<body>
+  <div id = "map-wrapper">
+    <div id = "mapid">
+      <div class = "legend" id = "legend-1"></div>
+    </div>
+  </div>
+
+  <script src = "./js/main.js" type = "module"></script> 
+  <script src = "./js/events.js" type = "module"></script>
+</body>
+
+</html>
