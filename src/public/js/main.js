@@ -28,4 +28,4 @@ map.getPane('geotif-pane').style.zIndex = 650;
   
 // Agrego la imagen tif al mapa, el problema es que carga despues de haber cargado toda la pagina. Habria que colocar un spinner mientras carga.
 addAreasQuemadas;
-addSentinelConcordia;
+//addSentinelConcordia;

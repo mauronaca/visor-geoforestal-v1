@@ -50,3 +50,7 @@ router.get('/getImageFromDrive', (req, res) => {
 });
 
 module.exports = router;
+
+
+/*PARA HACER
+ lo q falta es agregar un logo, banner con nombre del visor.. y los botones de info  ( de cada) como para leer de q se trata.. una mini referencia */
