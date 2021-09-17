@@ -16,28 +16,37 @@ legend.onAdd = function(){
 }
 // Cuando se agrega una capa
 map.on('overlayadd', (e) => {
-  let wms_layer_name = e.layer.wmsParams.layers;
-  let target_layer_1 = "elev_2021-03-06_t1100_1629683372509_macizos_concordia";
+  //let target_layer_1 = "elev_2021-03-06_t1100_1629683372509_macizos_concordia";
   let target_layer_2 = "altura_plantaciones_" + "1";
   let target_layer_3 = "altura_plantaciones_" + "2";
 
   /* Preguntar si el control ya esta definido! hee */
-
-  if(wms_layer_name == target_layer_1 || wms_layer_name == target_layer_2 || wms_layer_name == target_layer_3){
-    legend.addTo(map);
+  try{
+    let wms_layer_name = e.layer.wmsParams.layers;
+    if(wms_layer_name == target_layer_2 || wms_layer_name == target_layer_3){
+      legend.addTo(map);
+    }
+  } catch(error) {
+    console.log(error);
   }
+  
 });
 
 map.on('overlayremove', (e) => {
   let is_target_layer = false;
-  let target_layer_1 = "elev_2021-03-06_t1100_1629683372509_macizos_concordia";
+  //let target_layer_1 = "elev_2021-03-06_t1100_1629683372509_macizos_concordia";
   let target_layer_2 = "altura_plantaciones_" + "1";
   let target_layer_3 = "altura_plantaciones_" + "2";
 
   map.eachLayer( (ly) => {
-    let wms_layer_name = ly.wmsParams.layers;
-    if(wms_layer_name == target_layer_1 || wms_layer_name == target_layer_2 || wms_layer_name == target_layer_3){
-      is_target_layer = true;
+    try {
+      let wms_layer_name = ly.wmsParams.layers;
+      if(wms_layer_name == target_layer_2 || wms_layer_name == target_layer_3){
+        is_target_layer = true;
+      } 
+    } 
+    catch(error) {
+      console.log(error);
     }
   });
 

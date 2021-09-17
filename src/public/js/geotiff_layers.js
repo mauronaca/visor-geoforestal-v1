@@ -31,9 +31,10 @@ var addAreasQuemadas = fetch('./getImageFromDrive')
   });
 });
 
-var sentinel_concordia_B3 = 'https://www.googleapis.com/drive/v3/files/1juDcZnXFJIifGW45mydcMLTEGRNgCgl0?alt=media&key=AIzaSyCNxw7IdcBM7jmgCqIPPftaOlBP633k0GM'
-var sentinel_concordia_B11 = 'https://www.googleapis.com/drive/v3/files/1PPsbGLwGYQksBFalx4bRiE_a_kHgwvOv?alt=media&key=AIzaSyCNxw7IdcBM7jmgCqIPPftaOlBP633k0GM'
-var sentinel_concordia_B8 = 'https://www.googleapis.com/drive/v3/files/1gCENjOAfDkoCmAJOilK3j5wzTRyU0Nu8?alt=media&key=AIzaSyCNxw7IdcBM7jmgCqIPPftaOlBP633k0GM'
+// Hacer un get al servidor para que entregue los links para evitar que sea vean aca y sean publicos
+var sentinel_concordia_B3 = 'https://tif-images-delivery-test-v1.s3.us-east-2.amazonaws.com/images/sentinel/001ER/SentinelB3COG.tiff'//'https://www.googleapis.com/drive/v3/files/1juDcZnXFJIifGW45mydcMLTEGRNgCgl0?alt=media&key=AIzaSyCNxw7IdcBM7jmgCqIPPftaOlBP633k0GM'
+var sentinel_concordia_B11 = 'https://tif-images-delivery-test-v1.s3.us-east-2.amazonaws.com/images/sentinel/001ER/SentinelB11COG.tiff'//'https://www.googleapis.com/drive/v3/files/1PPsbGLwGYQksBFalx4bRiE_a_kHgwvOv?alt=media&key=AIzaSyCNxw7IdcBM7jmgCqIPPftaOlBP633k0GM'
+var sentinel_concordia_B8 = 'https://tif-images-delivery-test-v1.s3.us-east-2.amazonaws.com/images/sentinel/001ER/SentinelB8COG.tiff'//'https://www.googleapis.com/drive/v3/files/1gCENjOAfDkoCmAJOilK3j5wzTRyU0Nu8?alt=media&key=AIzaSyCNxw7IdcBM7jmgCqIPPftaOlBP633k0GM'
 
 var addSentinelConcordia = Promise.all([
   parseGeoraster(sentinel_concordia_B8),
@@ -69,7 +70,7 @@ var addSentinelConcordia = Promise.all([
   });
 
   //layer.addTo(map);
-  geotiffControl.addOverlay(layer, '<b>Sentinel</b>');
+  geotiffControl.addOverlay(layer, '<b>Sentinel Concordia</b>');
   //map.fitBounds(layer.getBounds());
 });
 
