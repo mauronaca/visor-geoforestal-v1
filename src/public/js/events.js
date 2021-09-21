@@ -1,4 +1,5 @@
 import {map} from "./main.js";
+import {leyenda_cosecha, leyenda_altura} from "./legends.js";
 
 /* Evento para agregar leyenda */
 /* ---------------------------- */
@@ -19,7 +20,6 @@ map.on('overlayadd', (e) => {
   //let target_layer_1 = "elev_2021-03-06_t1100_1629683372509_macizos_concordia";
   let target_layer_2 = "altura_plantaciones_" + "1";
   let target_layer_3 = "altura_plantaciones_" + "2";
-
   /* Preguntar si el control ya esta definido! hee */
   try{
     let wms_layer_name = e.layer.wmsParams.layers;
