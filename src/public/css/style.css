@@ -23,13 +23,15 @@ body{
 }
 
 /*Cambiar icono del menu de control*/
-.leaflet-top.leaflet-right .leaflet-control-layers:nth-child(2) .leaflet-control-layers-toggle {
+/*
+.leaflet-top.leaflet-right .leaflet-control-layers:nth-child(3) .leaflet-control-layers-toggle {
     background-image: url(https://png.pngtree.com/png-vector/20190129/ourlarge/pngtree-info-vector-icon-png-image_355800.jpg);
     background-size: cover;
     width: 36px;
     height: 36px;
 }
-.leaflet-top.leaflet-right .leaflet-control-layers:nth-child(3) .leaflet-control-layers-toggle {
+*/
+.leaflet-top.leaflet-right .leaflet-control-layers:nth-child(2) .leaflet-control-layers-toggle {
     background-image: url(https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/satellite.png);
     background-size: cover;
     width: 36px;

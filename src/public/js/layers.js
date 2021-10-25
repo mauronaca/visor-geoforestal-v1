@@ -1,26 +1,80 @@
-var popup = L.popup({
-    'autoPanPadding' : L.point(200, 200)
-});
-var popup_on = true;
-
+import {map, geotiffControl} from './main.js';
 // Extension de la clase L.WMS.Source que maneja el pedido de getFeatureInfo() y crea un popup en base a la informacion retornada.
+function addFeatureInfoPopup(info, latlng){
+  var popup = new L.popup({
+    closeOnClick : false,
+    autoClose : false
+    });
+  let stacked_text = info; // Texto que se irá acumulando en el popup
+  
+  map.eachLayer(function(layer) {
+    if(layer._latlng == latlng){
+      stacked_text = `${stacked_text}<br/><br/>${layer._content}`;
+      layer.options['autoClose'] = true; // Cuando aparezca el nuevo popup, el popup anterior en la misma posicion desaparece
+      layer.closePoup();
+    }
+  });
+  popup.setContent(stacked_text);
+  popup.setLatLng(latlng);
+  popup.openOn(map);
+}
+
+function getFeatureInfoBody(url){
+  return fetch('./getFeatureInfo', {
+    method : 'POST',
+    headers : {
+      'Content-Type' : 'application/json'
+    },
+    body : JSON.stringify(url)
+  })
+  .then((response) => {
+    return response.json();
+  })
+  .then((response) => {
+    return response.answer;
+  });
+}
+
 var MySource = L.WMS.Source.extend({
     'showFeatureInfo' : function(latlng, info){
-        if(!popup_on){
-            $('.leaflet-container').css('cursor','-webkit-grab');
-            return;
-        }
-        if(!this._map){
-            return; 
-        }
-        console.log(latlng);
-        console.log(info);
-        //popup.setLatLng(e.latlng).setContent("gg").openOn(this._map);
-        popup
-        .setLatLng(latlng)
-        .setContent(info)
-        .openOn(this._map);
+      $('.leaflet-container').css('cursor', 'progress');
+
+      if(!this._map){
         $('.leaflet-container').css('cursor','-webkit-grab');
+        return;
+      }
+      console.log(info);
+      try{
+        if(info[0] != '<'){
+          // Si no me devuelve un iframe y efectivamente es el texto
+          if(info != 'no features were found\n\r' && info != 'no features were found\n' && info != "no features were found\r\n") {
+            // Si el feature es util se abre el popup
+            addFeatureInfoPopup(info, latlng);
+          }
+          // Termino de abrir el popup
+          //$('.leaflet-container').css('cursor', 'grab');
+        } else {
+          // Si el response info es un iframe, quiere decir que el origen cruzado no esta habilitado
+          //console.log('Info en formato iframe');
+          //* Completar */
+          var json_url = {url : info.slice(info.indexOf("'") + 1, info.indexOf("' style='border:none'"))}; 
+
+          getFeatureInfoBody(json_url).then((res) => {
+            if(res != 'no features were found\n\r' && res != 'no features were found\n' && info != "no features were found\r\n"){
+              addFeatureInfoPopup(res, latlng);
+            }
+          });
+
+        }
+
+      } catch(error) {
+        alert('Ha ocurrido un problema');
+        console.log(error);
+        $('.leaflet-container').css('cursor','-webkit-grab');
+        return;
+      }
+      $('.leaflet-container').css('cursor','-webkit-grab');
+      return;
     }  
 });
 
@@ -170,7 +224,7 @@ var baseLayersTree = [  {
       ]
     }]},
   {
-    label: '<b>Detección de Incendios <b> <span class="material-icons">🔥︁</span>', 
+    label: '<b>Detección de Incendios <b> <span class="material-icons">🔥︁</span> <a href="https://drive.google.com/file/d/1uWf7avhwTaCDmcLTDUwPM4YuaAIvzGci/view?usp=sharing">Metodología  </a><span class="material-icons">︁🛰︁</span><a href="https://drive.google.com/file/d/1y2Vv0uFiZryzxGsLSsaz1w6cbI67ofdI/view?usp=sharing"> Video   </a>', 
     collapsed : true,
     children : [
       {
@@ -233,67 +287,85 @@ var baseLayersTree = [  {
 
     {
       label : '<b> MAGYP </b> <a href="https://public.tableau.com/app/profile/fhorn/viz/Tableroplantacionesforestales/Dashboard1" usp=sharing"> DASHBOARD ',
-      children : [{ 
+      children : [
+        
+        /*{ 
           label : 'Puntos App RegistFor <span class="material-icons">︁!︁</span>',
           layer : L.WMS.tileLayer(magypURL, {
             'transparent' : true,
             'format' : 'image/png',
             'tiled' : true,
             'layers' : 'dpf:puntos_registfor'})
-        },
+        },*/
         {
           label : 'Macizos Forestales ; <a href="https://drive.google.com/file/d/1aj5QaI_PCSwitHA554isFLjzvAdXtMy1/view?usp=sharing usp=sharing" usp=sharing"> Metodología y &copy CITA </a><span class="material-icons">︁</span>' ,
-          layer : L.WMS.tileLayer(magypURL, {
-            'transparent' : true,
-            'format' : 'image/png',
-            'tiled' : true,
-            'layers' : 'dpf:macizos_forestales_publicacion'})
+          //layer : L.WMS.tileLayer(magypURL, {
+          //  'transparent' : true,
+          //  'format' : 'image/png',
+          //  'tiled' : true,
+          //  'layers' : 'dpf:macizos_forestales_publicacion'})
+          layer : magypSource.getLayer('dpf:macizos_forestales_sin_categorizacion_por_especies')
         },
         {
           label : 'Cortinas Forestales',
-          layer : L.WMS.tileLayer(magypURL, {
-            'transparent' : true,
-            'format' : 'image/png',
-            'tiled' : true,
-            'layers' : 'dpf:cortinas_forestales_publicacion'})
+          //layer : L.WMS.tileLayer(magypURL, {
+          //  'transparent' : true,
+          //  'format' : 'image/png',
+          //  'tiled' : true,
+          //  'layers' : 'dpf:cortinas_forestales_publicacion'})
+          layer : magypSource.getLayer('dpf:cortinas_forestales_publicacion')
         }
       ]
     }, 
     {
-      label : '<b>Análisis de Cambios<b> &copy; <a href="https://drive.google.com/file/d/1A_PoGaO2kMOfrwe21Xk1iyWN0NTklC5L/view?usp=sharing">Metdología </a><span class="material-icons">︁🛰︁</span>',
-      children : [{ 
-        label : 'Estado de plantaciones forestales  Corrientes ( Resto) Agosto  (2020-2021)' ,
+      label : '<b>Análisis de Cambios<b> <a href="https://docs.google.com/document/d/1TzI8jS5VZoV8gXcLASCwE0KU8-lVXJhON88iaJ-OGck/edit?usp=sharing">Evaluación de Productos </a><span class="material-icons">︁🛰︁</span><a href="https://drive.google.com/file/d/1A_PoGaO2kMOfrwe21Xk1iyWN0NTklC5L/view?usp=sharing">Evaluación de análisis de control de cambios</a>' ,
+      collapsed : true,
+      children : [
+
+        , { 
+        label : 'Historial de aprovechamientos forestales - Corrientes (2000-2019)' ,
           layer : L.WMS.tileLayer(magypURL, {
             'transparent' : true,
             'format' : 'image/png',
             attribution: '&copy; <a href="https://www.magyp.gob.ar/sitio/areas/ss_desarrollo_foresto_industrial/">Área SIG e Inventario Forestal</a> contributors',
             'tiled' : true,
-            'layers' : 'Direccion_cambio_forestal_agosto_2020_2021_Corrientes_Resto'}, )
-        },{ 
-        label : 'Estado de plantaciones forestales Noreste de Corrientes Agosto (2020-2021)'+ '<BR> - Azul: En desarrollo sin cambios significativos. ' + '<BR> - Verde: Reforestación o Recuperación del crecimiento. '+'<BR> - Rojo: Aprovechamiento Forestal o afectado por incendio.' ,
+            'layers' : 'cosechados_2000_2019_Corrientes'} )},
+            
+            { 
+        label : 'Historial de aprovechamientos forestales - Misiones (2000-2019)' ,
           layer : L.WMS.tileLayer(magypURL, {
             'transparent' : true,
             'format' : 'image/png',
             attribution: '&copy; <a href="https://www.magyp.gob.ar/sitio/areas/ss_desarrollo_foresto_industrial/">Área SIG e Inventario Forestal</a> contributors',
             'tiled' : true,
-            'layers' : ':Direccion_cambio_forestal_agosto_2020_2021_Corrientes_Noreste'}, )
-        },{ 
-        label : 'Aprovechamientos forestales Noreste de Corrientes Agosto (2020-2021)' ,
+            'layers' : 'cosechados_2000_2019_Misiones'} )},
+            { 
+        label : 'Historial de aprovechamientos forestales - Entre Ríos (2000-2019)' ,
           layer : L.WMS.tileLayer(magypURL, {
             'transparent' : true,
             'format' : 'image/png',
             attribution: '&copy; <a href="https://www.magyp.gob.ar/sitio/areas/ss_desarrollo_foresto_industrial/">Área SIG e Inventario Forestal</a> contributors',
             'tiled' : true,
-            'layers' : 'Cosechas_Corrientes_Noreste_Agosto_2021'}, )
-        } , { 
-        label : 'Aprovechamientos forestales - Corrientes ( Resto) - Agosto(2020-2021)' ,
+            'layers' : 'cosechados_2000_2019_Entre_Rios'} )},
+            { 
+        label : 'Aprovechamientos forestales - Corrientes Agosto (2020-2021)' ,
           layer : L.WMS.tileLayer(magypURL, {
             'transparent' : true,
             'format' : 'image/png',
             attribution: '&copy; <a href="https://www.magyp.gob.ar/sitio/areas/ss_desarrollo_foresto_industrial/">Área SIG e Inventario Forestal</a> contributors',
             'tiled' : true,
-            'layers' : 'Cosechas_Corrientes_Resto_Agosto_2021'}, )
-        }]
+            'layers' : 'aprovechamientos_forestales_corrientes_2020_2021'}, )
+        } ,
+        { label: '<b>Estado actual de las plantaciones</a><b>', 
+        children: [{
+        label : ' Corrientes Agosto (2020-2021)',
+          layer : L.WMS.tileLayer(magypURL, {
+            'transparent' : true,
+            'format' : 'image/png',
+            attribution: '&copy; <a href="https://www.magyp.gob.ar/sitio/areas/ss_desarrollo_foresto_industrial/">Área SIG e Inventario Forestal</a> contributors',
+            'tiled' : true,
+            'layers' : 'mapa_de_cambios_corrientes'}, )
+        } ]}]
     }
     , 
       /*{
@@ -314,32 +386,52 @@ var baseLayersTree = [  {
       }*/
       ]
     },
-
-    {
-      label : '<b>Altura Forestal <b><span class="material-icons">︁ </span>'  ,
+{
+      label : '<b>Productos<b><span class="material-icons">︁ </span><a href="https://youtu.be/3a1RJmHuFkI usp=sharing"> Video <a'   ,
       collapsed : true,
       children : [ {
-        label : 'Altura Plantaciones ( Norte y Centro de Entre Ríos Norte y Centro) <a href="https://github.com/mg14github/Characterization-of-forest-plantations-based-on-information-derived-from-satellite-platforms-and-hig" usp=sharing"> Referencias  <a' ,
+        label : 'Altura Plantaciones ( Norte y Centro de Entre Ríos) MIN: 0 MAX: 50 m <a href="https://github.com/mg14github/Characterization-of-forest-plantations-based-on-information-derived-from-satellite-platforms-and-hig" usp=sharing"> Referencias  <a' ,
         layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
           'transparent' : true,
           'format' : 'image/png',
           'tiled' : true,
           'layers' : 'altura_plantaciones_2'})
       } , {
-        label : 'Altura Plantaciones (Sur - Entre Ríos) <a href="https://github.com/mg14github/Characterization-of-forest-plantations-based-on-information-derived-from-satellite-platforms-and-hig" usp=sharing"> Referencias  <a' ,
+        label : 'Altura Plantaciones (Sur - Entre Ríos) MIN: 0 MAX: 50 m <a href="https://github.com/mg14github/Characterization-of-forest-plantations-based-on-information-derived-from-satellite-platforms-and-hig" usp=sharing"> Referencias  <a' ,
         layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
           'transparent' : true,
           'format' : 'image/png',
           'tiled' : true,
           'layers' : 'altura_plantaciones_1'})
-      } ,{
-        label : 'Altura de Canopeo - ICESAT 2 <a href="https://nsidc.org/data/ATL08" usp=sharing"> Referencias  <a' ,
+      } 
+      
+      
+      
+      ,{
+        label : 'Altura de Canopeo -Entre Ríos - ICESAT 2 - Sensor ATL08 <a href="https://nsidc.org/data/ATL08" usp=sharing"> Referencias  <a' ,
         layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
           'transparent' : true,
           'format' : 'image/png',
           'tiled' : true,
-          'layers' : 'elev_2021-03-06_t1100_1629683372509_macizos_concordia'})
-      } ,
+          'layers' :
+          'alturas_canopeo_ICESAT2_ER_2021'})
+      } ,{
+        label : 'Altura de Canopeo -Corrientes - ICESAT 2 - Sensor ATL08 <a href="https://nsidc.org/data/ATL08" usp=sharing"> Referencias  <a' ,
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'ICESAT2_Corrientes_2021'})
+      } , {
+        label : 'Altura de Canopeo -Misiones - ICESAT 2 - Sensor ATL08 <a href="https://nsidc.org/data/ATL08" usp=sharing"> Referencias  <a' ,
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'ICESAT2_Misiones_2021'})
+      } 
       /*{
         label : 'Focos de calor - VIIRS Fires - Past 7 Days',
         layer : L.WMS.tileLayer('https://firms.modaps.eosdis.nasa.gov/wms/key/accd9ceab38b58bc58a7cd98e1c943ba/', {
@@ -357,7 +449,8 @@ var baseLayersTree = [  {
           'layers' : 'fires_modis_7'})
       }*/
       ]
-    },
+    }
+    ,
     
   {
   
@@ -453,11 +546,18 @@ var baseLayersTree = [  {
           'layers' : 'otbn_cs_3857'})
       }, {
         label : 'OTBN Entre Ríos',
-        layer : L.WMS.tileLayer('https://geo.ambiente.gob.ar/geoserver/bosques/wms', {
+        layer : new MySource('https://geo.ambiente.gob.ar/geoserver/bosques/wms', {
           'transparent' : true,
-          'format' : 'image/png',
           'tiled' : true,
-          'layers' : 'otbn_er_3857'})
+          'format' : 'image/png',
+          'info_format': 'text/plain',
+          'identify' : true
+        }).getLayer('otbn_er_3857')
+        //layer : L.WMS.tileLayer('https://geo.ambiente.gob.ar/geoserver/bosques/wms', {
+          //'transparent' : true,
+          //'format' : 'image/png',
+          //'tiled' : true,
+          //'layers' : 'otbn_er_3857'})
       },   {
         label : 'OTBN Buenos Aires',
         layer : L.WMS.tileLayer('https://geo.ambiente.gob.ar/geoserver/bosques/wms', {

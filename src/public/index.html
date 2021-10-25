@@ -43,7 +43,11 @@
   <script src="https://unpkg.com/proj4"></script>
   <script src="https://unpkg.com/georaster-layer-for-leaflet@latest"></script>
 
+  <!--Control de ventana p/ Leaflet-->
+  <script src = "./js/L.Control.Window.js"></script>
+
   <!--Plantilla de estilos-->
+  <link rel = "stylesheet" href = "./css/L.Control.Window.css" />
   <link rel = "stylesheet" href = "./css/style.css" />
 
 </head>
@@ -57,6 +61,12 @@
 
   <script src = "./js/main.js" type = "module"></script> 
   <script src = "./js/events.js" type = "module"></script>
+  <script type = "module">
+    import {map} from './js/main.js';
+    map.whenReady(() => {
+      var win =  L.control.window(map,{title:'Bienvenidos al Visor Cartográfico de la Dirección Nacional de Desarrollo Foresto Industrial', content:"  Para visualizar la información seleccione las capas dentro de los grupos temáticos y aguarde su carga. Este proceso puede demorar unos minuto. "}).show();
+    });
+  </script>
 </body>
 
 </html>
