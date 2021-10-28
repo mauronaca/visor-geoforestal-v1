@@ -282,7 +282,7 @@ var baseLayersTree = [  {
  
   {
   label : '<b>Cartografía Forestal</b><span class="material-icons">︁🌲︁🌳</span>',
-  collapsed : true,
+  collapsed : false,
   children : [
 
     {
@@ -302,9 +302,9 @@ var baseLayersTree = [  {
           //layer : L.WMS.tileLayer(magypURL, {
           //  'transparent' : true,
           //  'format' : 'image/png',
-          //  'tiled' : true,
-          //  'layers' : 'dpf:macizos_forestales_publicacion'})
-          layer : magypSource.getLayer('dpf:macizos_forestales_sin_categorizacion_por_especies')
+           // 'tiled' : true,
+            //'layers' : //'dpf:macizos_forestales_sin_categorizacion_por_especies'})
+        layer : magypSource.getLayer('dpf:macizos_forestales_sin_categorizacion_por_especies')
         },
         {
           label : 'Cortinas Forestales',
@@ -524,7 +524,8 @@ var baseLayersTree = [  {
             'layers' : 'zarate_campana_2015' })
       
     }
-  ]} ,
+  ]} /*, //Ordenamientos territoriales / Ocultas
+  // Al comentar las capas que siguen abajo hay que cerrar con ]; 
      {
       label : '<b>Ordenamientos territoriales - MAyDS <b><span class="material-icons"></span>  ',
       collapsed : true,
@@ -566,7 +567,7 @@ var baseLayersTree = [  {
           'tiled' : true,
           'layers' : 'otbn_ba_38570'})
       }]
-    }];
+     }*/];
 
     
 

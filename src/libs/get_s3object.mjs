@@ -1,10 +1,10 @@
 import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "./s3client.mjs";
 
-export const bucketParams = {
+/*export const bucketParams = {
     Bucket : "sentinel-cogs",
     Key : "sentinel-s2-l2a-cogs/21/H/UC/2021/10/S2B_21HUC_20211005_0_L2A/S2B_21HUC_20211005_0_L2A.json"
-}
+}*/
 
 export const run = async (params) => {
     try {
@@ -35,6 +35,6 @@ export const run = async (params) => {
     }
 };
 
-run();
+//run();
 export { run as getS3Object };
 

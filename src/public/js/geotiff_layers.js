@@ -74,38 +74,6 @@ var addSentinelConcordia = Promise.all([
   //map.fitBounds(layer.getBounds());
 });
 
-/*
-var sentinelConcordiaPromise = await Promise.all([
-  parseGeoraster('https://tif-images-delivery-test-v1.s3.us-east-2.amazonaws.com/images/sentinel/001ER/SentinelB3COG.tiff'),
-])
-var myBlob = await 
-.then(georasters => {
-  var pixelValuesToColorFn = values => {
-    const scale = chroma.scale(['white', 'black']).domain([0, 255]);
-    const [ VNIR] = values;
-    console.log(values)
-    if((VNIR !== 0 && isNaN(VNIR) == false) ){
 
-      const rgba =  scale(VNIR);
-      
-      return rgba;
-    } else {
-      // Si los pixeles son NaN o de valor nulo
-      return `rgba(0,0,0,0)`;
-    }
-  };
 
-  var layer = new GeoRasterLayer({
-    georasters,
-    pixelValuesToColorFn,
-    resolution: 64,
-    pane : 'geotif-pane'
-  });
-
-  //layer.addTo(map);
-  geotiffControl.addOverlay(layer, '<b>Sentinel Concordia -- Byte Format</b>');
-  //map.fitBounds(layer.getBounds());
-});
-
-*/
 export{addAreasQuemadas, addSentinelConcordia};

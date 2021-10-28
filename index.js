@@ -1,3 +1,12 @@
+import { createRequire } from 'module';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import { router } from './src/routes.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const require = createRequire(import.meta.url);
+
 const express = require('express');
 const path = require('path');
 const fetch = require('node-fetch');
@@ -10,7 +19,7 @@ app.use(express.json({limit : '2gb'}));
 app.use(express.static(path.join(__dirname, 'src/public')));
 
 // Routes
-app.use(require(path.join(__dirname, 'src/routes.js')));
+app.use(router);
 
 // Start server listening on port 3000
 const portID = 3000;

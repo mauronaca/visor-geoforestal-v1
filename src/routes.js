@@ -1,7 +1,14 @@
+import { createRequire } from 'module';
+import { getS3Object } from './libs/get_s3object.mjs';
+
+const require = createRequire(import.meta.url);
+
 const router = new require('express').Router();
 const bodyParser = require('body-parser');
 const request = require('request');
 const fetch = require('node-fetch');
+const cors = require('cors');
+//const getS3OBject = require('./src/libs/get_s3object.mjs')
 //import fetch from "node-fetch";
 
 // Default route, get index.html
@@ -49,8 +56,23 @@ router.get('/getImageFromDrive', (req, res) => {
   });
 });
 
-module.exports = router;
+router.get('/sentinel-assets', cors({ 'origin' : '*'}), (request, response) => {
+  let query = request.query;
+  console.log(query);
 
+  if(query.bucket == undefined || query.key == undefined){
+    response.sendStatus(422);
+  } else {
+    getS3Object({
+      Bucket : query.bucket,
+      Key : query.key
+    }).then(data => {
+      response.send(data);
+    });
+  }
+});
+
+export{router};
 
 /*PARA HACER
  lo q falta es agregar un logo, banner con nombre del visor.. y los botones de info  ( de cada) como para leer de q se trata.. una mini referencia */
