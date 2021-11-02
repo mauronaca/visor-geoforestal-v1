@@ -1,5 +1,5 @@
 import {map} from "./main.js";
-import {leyenda_cosecha, leyenda_altura, leyenda3, leyenda4, leyenda5, leyenda6, leyenda7} from "./legends.js";
+import {leyenda_cosecha, leyenda_altura, leyenda3, leyenda4, leyenda5} from "./legends.js";
 
 /* Evento para agregar leyenda */
 /* ---------------------------- */
@@ -11,18 +11,19 @@ map.on('overlayadd', (e) => {
   leyenda3.addLegend(map, e);
   leyenda4.addLegend(map, e);
   leyenda5.addLegend(map, e);
-  leyenda6.addLegend(map, e);
-  leyenda7.addLegend(map, e);
+  //leyenda6.addLegend(map, e);
+  //leyenda7.addLegend(map, e);
 });
 
 map.on('overlayremove', (e) => {
+  console.log(e)
   leyenda_altura.removeLegend(map, e);
   leyenda_cosecha.removeLegend(map, e);
   leyenda3.removeLegend(map, e);
   leyenda4.removeLegend(map, e);
   leyenda5.removeLegend(map, e);
-  leyenda6.removeLegend(map, e);
-  leyenda7.removeLegend(map, e);
+  //leyenda6.removeLegend(map, e);
+  //leyenda7.removeLegend(map, e);
 });
 
 /*

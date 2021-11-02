@@ -5,7 +5,8 @@ function addFeatureInfoPopup(info, latlng){
     closeOnClick : false,
     autoClose : false
     });
-  let stacked_text = info; // Texto que se irá acumulando en el popup
+  info = info.replace(/\n/g, "<br />");
+  let stacked_text = `<div>${info}</div>`; // Texto que se irá acumulando en el popup
   
   map.eachLayer(function(layer) {
     if(layer._latlng == latlng){
@@ -224,7 +225,7 @@ var baseLayersTree = [  {
       ]
     }]},
   {
-    label: '<b>Detección de Incendios <b> <span class="material-icons">🔥︁</span> <a href="https://drive.google.com/file/d/1uWf7avhwTaCDmcLTDUwPM4YuaAIvzGci/view?usp=sharing">Metodología  </a><span class="material-icons">︁🛰︁</span><a href="https://drive.google.com/file/d/1y2Vv0uFiZryzxGsLSsaz1w6cbI67ofdI/view?usp=sharing"> Video   </a>', 
+    label: '<b>Detección de Incendios <b> <span class="material-icons">🔥︁</span> <a href="https://drive.google.com/file/d/1uWf7avhwTaCDmcLTDUwPM4YuaAIvzGci/view?usp=sharing" target="_blank" rel="noopener noreferrer">Metodología  </a><span class="material-icons">︁🛰︁</span><a href="https://drive.google.com/file/d/1y2Vv0uFiZryzxGsLSsaz1w6cbI67ofdI/view?usp=sharing" target="_blank" rel="noopener noreferrer"> Video   </a>', 
     collapsed : true,
     children : [
       {
@@ -267,11 +268,7 @@ var baseLayersTree = [  {
         children : [
           {
             label : 'Focos de calor - CONAE (FIRMS)',
-            layer : L.WMS.tileLayer('https://geoservicios.conae.gov.ar/geoserver/GeoServiciosCONAE/wms', {
-              'transparent' : true,
-              'format' : 'image/png',
-              'tiled' : true,
-              'layers' : 'informacion_satelital'})
+            layer : conaeSource.getLayer('informacion_satelital')
           } 
         ]
       }
@@ -286,7 +283,7 @@ var baseLayersTree = [  {
   children : [
 
     {
-      label : '<b> MAGYP </b> <a href="https://public.tableau.com/app/profile/fhorn/viz/Tableroplantacionesforestales/Dashboard1" usp=sharing"> DASHBOARD ',
+      label : '<b> MAGYP </b> <a href="https://public.tableau.com/app/profile/fhorn/viz/Tableroplantacionesforestales/Dashboard1" usp=sharing" target="_blank" rel="noopener noreferrer"> DASHBOARD ',
       children : [
         
         /*{ 
@@ -296,15 +293,33 @@ var baseLayersTree = [  {
             'format' : 'image/png',
             'tiled' : true,
             'layers' : 'dpf:puntos_registfor'})
-        },*/
-        {
-          label : 'Macizos Forestales ; <a href="https://drive.google.com/file/d/1aj5QaI_PCSwitHA554isFLjzvAdXtMy1/view?usp=sharing usp=sharing" usp=sharing"> Metodología y &copy CITA </a><span class="material-icons">︁</span>' ,
+        },*/{
+          label : 'Agentes regionales ; <a href="https://www.magyp.gob.ar/sitio/areas/ss_desarrollo_foresto_industrial/tecnicos_regionales" target="_blank" rel="noopener noreferrer"> Referencias </a> <span class="material-icons">︁</span>' ,
           //layer : L.WMS.tileLayer(magypURL, {
           //  'transparent' : true,
           //  'format' : 'image/png',
            // 'tiled' : true,
             //'layers' : //'dpf:macizos_forestales_sin_categorizacion_por_especies'})
-        layer : magypSource.getLayer('dpf:macizos_forestales_sin_categorizacion_por_especies')
+          layer : magypSource.getLayer('dpf:distribucion_agentes_regionales')
+        },
+        {
+          label : 'Macizos Forestales ; <a href="https://drive.google.com/file/d/1aj5QaI_PCSwitHA554isFLjzvAdXtMy1/view?usp=sharing usp=sharing"target="_blank" rel="noopener noreferrer"> Metodología y &copy CITA </a><span class="material-icons">︁</span>' ,
+          //layer : L.WMS.tileLayer(magypURL, {
+          //  'transparent' : true,
+          //  'format' : 'image/png',
+           // 'tiled' : true,
+            //'layers' : //'dpf:macizos_forestales_sin_categorizacion_por_especies'})
+          layer : magypSource.getLayer('dpf:macizos_forestales_sin_categorizacion_por_especies')
+        },
+
+        {
+          label : 'Macizos Forestales por grupos de especies ; <a href="https://drive.google.com/file/d/1aj5QaI_PCSwitHA554isFLjzvAdXtMy1/view?usp=sharing usp=sharing"target="_blank" rel="noopener noreferrer""> Metodología y &copy CITA </a><span class="material-icons">︁</span>' ,
+          //layer : L.WMS.tileLayer(magypURL, {
+          //  'transparent' : true,
+          //  'format' : 'image/png',
+           // 'tiled' : true,
+            //'layers' : //'dpf:macizos_forestales_sin_categorizacion_por_especies'})
+          layer : magypSource.getLayer('dpf:macizos_forestales_publicacion_con_formato')
         },
         {
           label : 'Cortinas Forestales',
@@ -318,7 +333,7 @@ var baseLayersTree = [  {
       ]
     }, 
     {
-      label : '<b>Análisis de Cambios<b> <a href="https://docs.google.com/document/d/1TzI8jS5VZoV8gXcLASCwE0KU8-lVXJhON88iaJ-OGck/edit?usp=sharing">Evaluación de Productos </a><span class="material-icons">︁🛰︁</span><a href="https://drive.google.com/file/d/1A_PoGaO2kMOfrwe21Xk1iyWN0NTklC5L/view?usp=sharing">Evaluación de análisis de control de cambios</a>' ,
+      label : '<b>Análisis de Cambios<b> <a href="https://drive.google.com/file/d/1lb24iBB-5UxGBTy-mb1uSORcR5bIlgPT/view?usp=sharing " target="_blank" rel="noopener noreferrer">Evaluación de Productos </a><span class="material-icons">︁🛰︁</span><a href="https://drive.google.com/file/d/1UopLIwRZdkKLA1VDoudkKmaoP9DnCDcm/view?usp=sharing" target="_blank" rel="noopener noreferrer">Evaluación de análisis de control de cambios</a>' ,
       collapsed : true,
       children : [
 
@@ -327,7 +342,7 @@ var baseLayersTree = [  {
           layer : L.WMS.tileLayer(magypURL, {
             'transparent' : true,
             'format' : 'image/png',
-            attribution: '&copy; <a href="https://www.magyp.gob.ar/sitio/areas/ss_desarrollo_foresto_industrial/">Área SIG e Inventario Forestal</a> contributors',
+            attribution: '&copy; <a href="https://www.magyp.gob.ar/sitio/areas/ss_desarrollo_foresto_industrial/" >Área SIG e Inventario Forestal</a> contributors',
             'tiled' : true,
             'layers' : 'cosechados_2000_2019_Corrientes'} )},
             
@@ -364,7 +379,7 @@ var baseLayersTree = [  {
             'format' : 'image/png',
             attribution: '&copy; <a href="https://www.magyp.gob.ar/sitio/areas/ss_desarrollo_foresto_industrial/">Área SIG e Inventario Forestal</a> contributors',
             'tiled' : true,
-            'layers' : 'mapa_de_cambios_corrientes'}, )
+            'layers' : 'dpf:mapa_de_cambios_corrientes'}, )
         } ]}]
     }
     , 
@@ -387,50 +402,47 @@ var baseLayersTree = [  {
       ]
     },
 {
-      label : '<b>Productos<b><span class="material-icons">︁ </span><a href="https://youtu.be/3a1RJmHuFkI usp=sharing"> Video <a'   ,
+      label : '<b>Productos<b><span class="material-icons">︁ </span><a href="https://youtu.be/3a1RJmHuFkI usp=sharing" target="_blank" rel="noopener noreferrer"> Video  </a><span class="material-icons">︁🛰︁</span><a href="https://mgaute14.users.earthengine.app/view/apptfgautecaracterizacionplantacionesforestales" target="_blank" rel="noopener noreferrer"> App</a>'  ,
       collapsed : true,
       children : [ {
-        label : 'Altura Plantaciones ( Norte y Centro de Entre Ríos) MIN: 0 MAX: 50 m <a href="https://github.com/mg14github/Characterization-of-forest-plantations-based-on-information-derived-from-satellite-platforms-and-hig" usp=sharing"> Referencias  <a' ,
+        label : 'Altura Plantaciones ( Norte y Centro de Entre Ríos) MIN: 0 MAX: 50 m <a href="https://github.com/mg14github/Characterization-of-forest-plantations-based-on-information-derived-from-satellite-platforms-and-hig" usp=sharing" target="_blank" rel="noopener noreferrer"> Referencias  <a' ,
         layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
           'transparent' : true,
           'format' : 'image/png',
           'tiled' : true,
           'layers' : 'altura_plantaciones_2'})
       } , {
-        label : 'Altura Plantaciones (Sur - Entre Ríos) MIN: 0 MAX: 50 m <a href="https://github.com/mg14github/Characterization-of-forest-plantations-based-on-information-derived-from-satellite-platforms-and-hig" usp=sharing"> Referencias  <a' ,
+        label : 'Altura Plantaciones (Sur - Entre Ríos) MIN: 0 MAX: 50 m <a href="https://github.com/mg14github/Characterization-of-forest-plantations-based-on-information-derived-from-satellite-platforms-and-hig" usp=sharing" target="_blank" rel="noopener noreferrer"> Referencias  <a' ,
         layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
           'transparent' : true,
           'format' : 'image/png',
           'tiled' : true,
           'layers' : 'altura_plantaciones_1'})
       } 
-      
-      
-      
       ,{
-        label : 'Altura de Canopeo -Entre Ríos - ICESAT 2 - Sensor ATL08 <a href="https://nsidc.org/data/ATL08" usp=sharing"> Referencias  <a' ,
+        label : 'Altura de Canopeo -Entre Ríos - ICESAT 2 - Sensor ATL08 <a href="https://nsidc.org/data/ATL08" usp=sharing" target="_blank" rel="noopener noreferrer"> Referencias  <a' ,
         layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
           'transparent' : true,
           'format' : 'image/png',
           'tiled' : true,
           'layers' :
-          'alturas_canopeo_ICESAT2_ER_2021'})
+          'icesat_entre_rios_2021'})
       } ,{
-        label : 'Altura de Canopeo -Corrientes - ICESAT 2 - Sensor ATL08 <a href="https://nsidc.org/data/ATL08" usp=sharing"> Referencias  <a' ,
+        label : 'Altura de Canopeo -Corrientes - ICESAT 2 - Sensor ATL08 <a href="https://nsidc.org/data/ATL08" usp=sharing" target="_blank" rel="noopener noreferrer"> Referencias  <a' ,
         layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
           'transparent' : true,
           'format' : 'image/png',
           'tiled' : true,
           'layers' :
-          'ICESAT2_Corrientes_2021'})
+          'icesat_corrientes_2021'})
       } , {
-        label : 'Altura de Canopeo -Misiones - ICESAT 2 - Sensor ATL08 <a href="https://nsidc.org/data/ATL08" usp=sharing"> Referencias  <a' ,
+        label : 'Altura de Canopeo -Misiones - ICESAT 2 - Sensor ATL08 <a href="https://nsidc.org/data/ATL08" usp=sharing" target="_blank" rel="noopener noreferrer"> Referencias  <a' ,
         layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
           'transparent' : true,
           'format' : 'image/png',
           'tiled' : true,
           'layers' :
-          'ICESAT2_Misiones_2021'})
+          'icesat_misiones_2021'})
       } 
       /*{
         label : 'Focos de calor - VIIRS Fires - Past 7 Days',
