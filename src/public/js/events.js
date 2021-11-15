@@ -1,5 +1,6 @@
-import {map} from "./main.js";
+import {map, sidebar} from "./main.js";
 import {leyenda_cosecha, leyenda_altura, leyenda3, leyenda4, leyenda5} from "./legends.js";
+import { content as content} from "../assets/info-content.js";
 
 /* Evento para agregar leyenda */
 /* ---------------------------- */
@@ -25,6 +26,23 @@ map.on('overlayremove', (e) => {
   //leyenda6.removeLegend(map, e);
   //leyenda7.removeLegend(map, e);
 });
+
+/* Botones de informacion en las etiquetas de las capas */
+
+window.layerInfoClick = function (contentText){
+  // Abrir menu
+  // Abrir el tab de Info
+  if (L.DomUtil.hasClass(sidebar._sidebar, 'collapsed')) {
+    L.DomUtil.removeClass(sidebar._sidebar, 'collapsed'); // Abrir el menu
+    document.getElementById('information').className = 'sidebar-pane active'; // Mostrar el pane especifico
+    let p = content(contentText);
+    document.getElementById('information').appendChild(p);
+    
+  } else {
+    L.DomUtil.addClass(sidebar._sidebar, 'collapsed'); // Cerrar el menu
+    document.getElementById("information-content-text").remove();
+  }
+}
 
 /*
 // Para leer: http://132.72.155.230:3838/js/leaflet.html

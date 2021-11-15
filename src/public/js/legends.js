@@ -65,37 +65,39 @@ L.control.legend = function(name, opts){
 var leyenda_cosecha = L.control.legend('Leyenda-1', {
   layerName : ['cosechados_2000_2019_Corrientes', 'cosechados_2000_2019_Misiones', 'cosechados_2000_2019_Entre_Rios'],
   imgURL : "https://geoforestal.magyp.gob.ar/geoserver/dpf/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=cosechados_2000_2019_Corrientes",
-  position : "topleft"
+  position : "topright"
 });
 var leyenda_altura = L.control.legend('Leyenda-2', {
   layerName : ['altura_plantaciones_1', 'altura_plantaciones_2'],
   imgURL : "https://geoforestal.magyp.gob.ar/geoserver/dpf/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=altura_plantaciones_1",
-  position : "topleft"
+  position : "topright"
 });
 var leyenda3  = L.control.legend('Leyenda-3', {
-  layerName : ['mapa_de_cambios_corrientes'],
-  imgURL : "https://geoforestal.magyp.gob.ar/geoserver/dpf/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20LAYER=dpf:mapa_de_cambios_corrientes",
-  position : "topleft"
+  layerName : ['dpf:mapa_de_cambios_corrientes'],
+  imgURL : "https://geoforestal.magyp.gob.ar/geoserver/dpf/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=dpf:direccion_cambio",
+  position : "topright"
 });
 var leyenda4  = L.control.legend('Leyenda-4', {
   layerName : ['icesat_entre_rios_2021', 'icesat_misiones_2021', 'icesat_corrientes_2021'],
-  imgURL : "../images/icesat_misiones_2021_legend.png",
+  imgURL : "https://geoforestal.magyp.gob.ar/geoserver/dpf/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=dpf:icesat_entre_rios_2021",
   position : "bottomright"
 });
 var leyenda5  = L.control.legend('Leyenda-5', {
   layerName : ['macizos_forestales_publicacion_con_formato'],
-  imgURL : "https://geoforestal.magyp.gob.ar/geoserver/dpf/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=dpf:macizos_forestales_publicacion_con_formato",
-  position : "topleft"
+  imgURL : "https://geoforestal.magyp.gob.ar/geoserver/dpf/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=macizos_forestales_publicacion_con_formato",
+  position : "bottomright"
 });
-/*var leyenda6  = L.control.legend('Leyenda-6', {
+/*
+var leyenda6  = L.control.legend('Leyenda-6', {
   layerName : ['icesat_misiones_2021'],
   imgURL : "https://geoforestal.magyp.gob.ar/geoserver/dpf/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=icesat_misiones_2021",
   position : "bottomright"
-});*/
-/*var leyenda7  = L.control.legend('Leyenda-7', {
+});
+var leyenda7  = L.control.legend('Leyenda-7', {
   layerName : ['icesat_corrientes_2021'],
   imgURL : "https://geoforestal.magyp.gob.ar/geoserver/dpf/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=icesat_corrientes_2021",
   position : "bottomright"
-});*/
+});
+*/
 
 export{leyenda_cosecha, leyenda_altura, leyenda3, leyenda4, leyenda5};

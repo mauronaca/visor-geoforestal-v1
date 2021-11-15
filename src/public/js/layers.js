@@ -1,4 +1,5 @@
 import {map, geotiffControl} from './main.js';
+
 // Extension de la clase L.WMS.Source que maneja el pedido de getFeatureInfo() y crea un popup en base a la informacion retornada.
 function addFeatureInfoPopup(info, latlng){
   var popup = new L.popup({
@@ -79,6 +80,12 @@ var MySource = L.WMS.Source.extend({
     }  
 });
 
+let info_button = `<a onclick="layerInfoClick()"><i style="font-size:20px" class="fa fa-info-circle"></i></a>`
+let addInfoBtn = function (label, contentText){
+  console.log(contentText)
+  return `${label}   <a onclick="layerInfoClick('${contentText}')"><i style="font-size:20px" class="fa fa-info-circle"></i></a>`;
+};
+
 const magypURL = 'https://geoforestal.magyp.gob.ar/geoserver/dpf/wms';
 
 var magypSource = new MySource(magypURL, {
@@ -111,6 +118,30 @@ var ignSource = new MySource('https://wms.ign.gob.ar/geoserver/ows', {
     'identify' : true
 });
 
+let macizos_layer = new MySource(magypURL, {
+    'transparent' : true,
+    'tiled' : true,
+    'format' : 'image/png',
+    'info_format': 'text/plain',
+    'identify' : true
+}).getLayer('dpf:macizos_forestales_sin_categorizacion_por_especies')
+
+let cortinas_layer = new MySource(magypURL, {
+    'transparent' : true,
+    'tiled' : true,
+    'format' : 'image/png',
+    'info_format': 'text/plain',
+    'identify' : true
+}).getLayer('dpf:cortinas_forestales_publicacion');
+
+let agentes_reg_layer = new MySource(magypURL, {
+    'transparent' : true,
+    'tiled' : true,
+    'format' : 'image/png',
+    'info_format': 'text/plain',
+    'identify' : true
+}).getLayer('dpf:distribucion_agentes_regionales');
+
 var baseMapInfo = {
     'url' : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
     'options' : {
@@ -135,6 +166,8 @@ var baseMapGoogle = {
         attribution : '&copy; <a href="https://earth.google.com/" target="_blank">Google Earth</a>'
     }
 };
+
+
 
 const info_icon = `
   <!DOCTYPE HTML>
@@ -188,7 +221,39 @@ var baseTreeMap = [
             })
         },
         
-       
+       {
+            label : 'World Cover 2020',
+            layer : L.WMS.tileLayer('https://services.terrascope.be/wms/v2', {
+                'tiled' : true,
+                'format': 'image/png',
+                'transparent': true,
+                'layers': 'WORLDCOVER_2020_MAP', 
+                attribution: '&copy; <a href="	https://terrascope.be/nl" >terrascope</a> contributors'
+            })
+            // Instituto Geográfico Nacional + OpenStreetMap
+        },
+        {
+            label : 'World Cover 2020 Sentinel-2',
+            layer : L.WMS.tileLayer('https://services.terrascope.be/wms/v2', {
+                'tiled' : true,
+                'format': 'image/png',
+                'transparent': true,
+                'layers': 'WORLDCOVER_2020_S2_FCC', 
+                attribution: '&copy; <a href="	https://terrascope.be/nl" >terrascope</a> contributors'
+            })
+            // Instituto Geográfico Nacional + OpenStreetMap
+        },
+        {
+            label : 'World Cover 2020 Sentinel- 1 VV/HH ',
+            layer : L.WMS.tileLayer('https://services.terrascope.be/wms/v2', {
+                'tiled' : true,
+                'format': 'image/png',
+                'transparent': true,
+                'layers': 'WORLDCOVER_2020_S1_VVVHratio', 
+                attribution: '&copy; <a href="	https://terrascope.be/nl" >terrascope</a> contributors'
+            })
+            // Instituto Geográfico Nacional + OpenStreetMap
+        },
         {
             label : 'Google Hybrid',
             layer : baseMapGoogle = L.WMS.tileLayer(baseMapGoogle.url, baseMapGoogle.options)
@@ -300,16 +365,19 @@ var baseLayersTree = [  {
           //  'format' : 'image/png',
            // 'tiled' : true,
             //'layers' : //'dpf:macizos_forestales_sin_categorizacion_por_especies'})
-          layer : magypSource.getLayer('dpf:distribucion_agentes_regionales')
+          
+          layer : agentes_reg_layer
         },
         {
-          label : 'Macizos Forestales ; <a href="https://drive.google.com/file/d/1aj5QaI_PCSwitHA554isFLjzvAdXtMy1/view?usp=sharing usp=sharing"target="_blank" rel="noopener noreferrer"> Metodología y &copy CITA </a><span class="material-icons">︁</span>' ,
+          //label : `Macizos Forestales ; <a href="https://drive.google.com/file/d/1aj5QaI_PCSwitHA554isFLjzvAdXtMy1/view?usp=sharing usp=sharing"target="_blank" rel="noopener noreferrer"> Metodología y &copy CITA </a><span class="material-icons">︁</span>`
           //layer : L.WMS.tileLayer(magypURL, {
           //  'transparent' : true,
           //  'format' : 'image/png',
            // 'tiled' : true,
             //'layers' : //'dpf:macizos_forestales_sin_categorizacion_por_especies'})
-          layer : magypSource.getLayer('dpf:macizos_forestales_sin_categorizacion_por_especies')
+          //label : `Macizos Forestales Metodología y &copy CITA  ` + info_button,
+          label : addInfoBtn('Macizos Forestales Metodología y &copy CITA','macizos'),
+          layer : macizos_layer
         },
 
         {
@@ -328,7 +396,7 @@ var baseLayersTree = [  {
           //  'format' : 'image/png',
           //  'tiled' : true,
           //  'layers' : 'dpf:cortinas_forestales_publicacion'})
-          layer : magypSource.getLayer('dpf:cortinas_forestales_publicacion')
+          layer : cortinas_layer
         }
       ]
     }, 
@@ -645,6 +713,9 @@ var baseTreeLayersWithInfo = [{
     }
   ]
 }];
+
+//magypSource.getLayer('dpf:macizos_forestales_publicacion').addTo(map);
+
 
 export{baseTreeLayersWithInfo, baseLayersTree, baseTreeMap};
 

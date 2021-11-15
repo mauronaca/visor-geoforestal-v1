@@ -16,7 +16,7 @@ L.control.layers.tree(baseTreeMap, baseLayersTree).addTo(map);
 export var geotiffControl = L.control.layers().addTo(map);
 
 L.control.coordinates({
-    position:"bottomleft",
+    position:"bottomright",
     decimals: 2,
     decimalSeperator:",",
     labelTemplateLat:"Latitude: {y}",
@@ -25,7 +25,20 @@ L.control.coordinates({
   
 map.createPane('geotif-pane');
 map.getPane('geotif-pane').style.zIndex = 650;
+/*
+L.WMS.overlay('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+  'layers' : 'dpf:macizos_forestales_publicacion_con_formato',
+  'transparent' : true,
+  'tiled' : true,
+  'format' : 'image/png',
+}).addTo(map);
   
+
+*/
+
+/* Barra de menu */
+export let sidebar = L.control.sidebar('sidebar', {position : 'left', collapsed : 'false'}).addTo(map);
+
 // Agrego la imagen tif al mapa, el problema es que carga despues de haber cargado toda la pagina. Habria que colocar un spinner mientras carga.
 addAreasQuemadas;
 addSentinelConcordia;

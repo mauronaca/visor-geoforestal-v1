@@ -10,6 +10,7 @@
 
   <!--Fuentes iconos de Google-->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   
   <!--Chroma js-->
   <script src="https://unpkg.com/chroma-js"></script>
@@ -26,6 +27,10 @@
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin="">
   </script>
+  <script src="./js/leaflet-sidebar.js"></script>
+
+  <!--Plantilla para el sidebar-->
+  <link rel="stylesheet" href="../css/leaflet-sidebar.css" />
 
   <!--Paquete de Leaflet para los WMS-->
   <script src="https://unpkg.com/leaflet.wms@0.2.0/dist/leaflet.wms.js"></script>
@@ -53,6 +58,37 @@
 </head>
 
 <body>
+  
+  <script src = "./js/events.js" type = "module"></script>
+
+  <div id="sidebar" class="sidebar collapsed">
+    <div class="sidebar-tabs">
+      <ul role="tablist">
+        <li><a href="#home" role="tab"><i class="fa fa-home"></i></a></li>
+        <li><a href="#information" role="tab"><i class="fa fa-info-circle"></i></a></li>
+      </ul>          
+    </div>
+
+    <div class="sidebar-content">
+      <div class="sidebar-pane" id="home">
+        <h1 class="sidebar-header">
+          Home
+          <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+        </h1>
+        <p></p>
+      </div>
+
+      <div class="sidebar-pane" id="information">
+        <h1 class="sidebar-header">
+          Información sobre la capa
+          <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+        </h1>
+      </div>
+
+    </div>
+  </div>
+  
+
   <div id = "map-wrapper">
     <div id = "mapid">
       <div class = "legend" id = "legend-1"></div>
@@ -60,13 +96,24 @@
   </div>
 
   <script src = "./js/main.js" type = "module"></script> 
-  <script src = "./js/events.js" type = "module"></script>
+
   <script type = "module">
     import {map} from './js/main.js';
+
+    let content = `
+    
+    <div>
+      <img src="./images/magyp-agricultura.png" style="position:relative; width:50%; height:20%; left:25%;">
+      <p style="font-awesome">  Para visualizar la información seleccione las capas dentro de los grupos temáticos y aguarde su carga. Este proceso puede demorar unos minuto. </p>
+    </div>
+    
+    `;
+
     map.whenReady(() => {
-      var win =  L.control.window(map,{title:'Bienvenidos al Visor Cartográfico de la Dirección Nacional de Desarrollo Foresto Industrial', content:"  Para visualizar la información seleccione las capas dentro de los grupos temáticos y aguarde su carga. Este proceso puede demorar unos minuto. "}).show();
+      var win =  L.control.window(map,{title:'Bienvenidos al Visor Cartográfico de la Dirección Nacional de Desarrollo Foresto Industrial', content:content}).show();
     });
   </script>
+  
 </body>
 
 </html>
