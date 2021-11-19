@@ -6,7 +6,7 @@ import { content as content} from "../assets/info-content.js";
 /* ---------------------------- */
 
 map.on('overlayadd', (e) => {
-  console.log(e);
+  //console.log(e);
   leyenda_altura.addLegend(map, e);
   leyenda_cosecha.addLegend(map, e);
   leyenda3.addLegend(map, e);
@@ -44,55 +44,42 @@ window.layerInfoClick = function (contentText){
   }
 }
 
-/*
-// Para leer: http://132.72.155.230:3838/js/leaflet.html
-let legend = L.control({
-  position : "bottomright",
-  //pane : 'legend-pane'
-});
-legend.onAdd = function(){
-  let div = L.DomUtil.create("div", "legend");
-  div.innerHTML = 
-  `<img src="https://geoforestal.magyp.gob.ar/geoserver/dpf/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=altura_plantaciones_1">`;
-  return div;
-}
-// Cuando se agrega una capa
-map.on('overlayadd', (e) => {
-  //let target_layer_1 = "elev_2021-03-06_t1100_1629683372509_macizos_concordia";
-  let target_layer_2 = "altura_plantaciones_" + "1";
-  let target_layer_3 = "altura_plantaciones_" + "2";
-
-  try{
-    let wms_layer_name = e.layer.wmsParams.layers;
-    if(wms_layer_name == target_layer_2 || wms_layer_name == target_layer_3){
-      legend.addTo(map);
-    }
-  } catch(error) {
-    console.log(error);
-  }
+map.on('baselayerchange', (e) => {
+  let div = document.getElementById('base-layer-info-content');
+  let argenmap = `
+  Argenmap mapa base es un servicio libre y gratuito de mapas base desarrollado por el Instituto Geográfico Nacional para que los diferentes usuarios puedan embeber el mapa digital oficial de la República Argentina en sitios web o consumirlo desde una aplicación SIG. Este servicio se enmarca en el mandato de la Ley Nº 22.963 (Ley de la Carta)
+  `;
+  let world_cover_2020 = `
   
+  ESA WorldCover 10 m 2020 proporciona un nuevo producto de cobertura terrestre global de referencia con una resolución de 10 m para 2020 basado en datos de Sentinel-1 y 2. <a target="_blank" href = "https://worldcover2020.esa.int/"> Referencias </a>
+  
+  `;
+
+  let layers = { 
+    // El indice es segun el orden en el que estan las capas base en el 
+    // menu control
+    '0' : 'TopoMap-OSM',
+    '1' : argenmap,
+    '2' : 'SRTM30-Colored',
+    '3' : world_cover_2020,
+    '4' : 'World Cover 2020 Sentinel-2',
+    '5' : 'World Cover 2020 Sentinel- 1 VV/HH',
+    '6' : 'Google Hybrid'
+  };
+
+  div.innerHTML = ` 
+  
+  <p>
+  <i>
+  Las capas base pueden ser utilizadas para contextualizar el resto de la información seleccionada. 
+  </i>
+  </p>
+  <tr>
+  <p>
+    ${layers[e.name] }
+  </p>
+
+  `
 });
 
-map.on('overlayremove', (e) => {
-  let is_target_layer = false;
-  //let target_layer_1 = "elev_2021-03-06_t1100_1629683372509_macizos_concordia";
-  let target_layer_2 = "altura_plantaciones_" + "1";
-  let target_layer_3 = "altura_plantaciones_" + "2";
-
-  map.eachLayer( (ly) => {
-    try {
-      let wms_layer_name = ly.wmsParams.layers;
-      if(wms_layer_name == target_layer_2 || wms_layer_name == target_layer_3){
-        is_target_layer = true;
-      } 
-    } 
-    catch(error) {
-      console.log(error);
-    }
-  });
-
-  if(!is_target_layer){
-    map.removeControl(legend);
-  }
-});
-*/
+// Para leer: http://132.72.155.230:3838/js/leaflet.html

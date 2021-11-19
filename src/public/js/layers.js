@@ -80,10 +80,14 @@ var MySource = L.WMS.Source.extend({
     }  
 });
 
-let info_button = `<a onclick="layerInfoClick()"><i style="font-size:20px" class="fa fa-info-circle"></i></a>`
 let addInfoBtn = function (label, contentText){
   console.log(contentText)
-  return `${label}   <a onclick="layerInfoClick('${contentText}')"><i style="font-size:20px" class="fa fa-info-circle"></i></a>`;
+  return `
+  
+ 
+    ${label}  <a onclick="layerInfoClick('${contentText}')"><i style="font-size:20px" class="fa fa-info-circle"></i></a>
+ 
+  `;
 };
 
 const magypURL = 'https://geoforestal.magyp.gob.ar/geoserver/dpf/wms';
@@ -191,6 +195,7 @@ const info_icon = `
    </BODY>
   </HTML>
 `;
+
 var baseTreeMap = [
   {
     label :`<b>Capas base</b> 
@@ -208,7 +213,7 @@ var baseTreeMap = [
                 'format': 'image/png',
                 'transparent': true,
                 'layers': 'capabaseargenmap', 
-                attribution: '&copy; <a href="https://www.ign.gob.ar" >Instituto Geográfico Nacional + OpenStreetMap</a> contributors'
+                attribution:  '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | <a href="http://www.ign.gob.ar/AreaServicios/Argenmap/IntroduccionV2" target="_blank">Instituto Geográfico Nacional</a> + <a href="http://www.osm.org/copyright" target="_blank">OpenStreetMap</a>'
             })
             // Instituto Geográfico Nacional + OpenStreetMap
         },
@@ -233,7 +238,7 @@ var baseTreeMap = [
             // Instituto Geográfico Nacional + OpenStreetMap
         },
         {
-            label : 'World Cover 2020 Sentinel-2',
+            label : 'Imagen satelital Sentinel-2 (2020-FALSO COLOR)',
             layer : L.WMS.tileLayer('https://services.terrascope.be/wms/v2', {
                 'tiled' : true,
                 'format': 'image/png',
@@ -244,7 +249,7 @@ var baseTreeMap = [
             // Instituto Geográfico Nacional + OpenStreetMap
         },
         {
-            label : 'World Cover 2020 Sentinel- 1 VV/HH ',
+            label : 'Imagen satelital-RADAR-Sentinel 1-(2020 -ratio VV/HH) ',
             layer : L.WMS.tileLayer('https://services.terrascope.be/wms/v2', {
                 'tiled' : true,
                 'format': 'image/png',
@@ -253,15 +258,18 @@ var baseTreeMap = [
                 attribution: '&copy; <a href="	https://terrascope.be/nl" >terrascope</a> contributors'
             })
             // Instituto Geográfico Nacional + OpenStreetMap
-        },
+        }/*,
         {
             label : 'Google Hybrid',
             layer : baseMapGoogle = L.WMS.tileLayer(baseMapGoogle.url, baseMapGoogle.options)
         },
-        /*
+        
         {
             label : 'Google Satellite',
-            layer : baseMapGoogle = L.WMS.tileLayer(baseMapGoogle.url, baseMapGoogle.options)
+            layer : L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+              maxZoom: 20,
+              subdomains:['mt0','mt1','mt2','mt3']
+              })
         },*/
     ]
 }];
@@ -348,7 +356,7 @@ var baseLayersTree = [  {
   children : [
 
     {
-      label : '<b> MAGYP </b> <a href="https://public.tableau.com/app/profile/fhorn/viz/Tableroplantacionesforestales/Dashboard1" usp=sharing" target="_blank" rel="noopener noreferrer"> DASHBOARD ',
+      label : '<b> Área SIG </b> <a href="https://public.tableau.com/app/profile/fhorn/viz/Tableroplantacionesforestales/Dashboard1" usp=sharing" target="_blank" rel="noopener noreferrer"> Tablero de Plantaciones Forestales ',
       children : [
         
         /*{ 
@@ -359,7 +367,7 @@ var baseLayersTree = [  {
             'tiled' : true,
             'layers' : 'dpf:puntos_registfor'})
         },*/{
-          label : 'Agentes regionales ; <a href="https://www.magyp.gob.ar/sitio/areas/ss_desarrollo_foresto_industrial/tecnicos_regionales" target="_blank" rel="noopener noreferrer"> Referencias </a> <span class="material-icons">︁</span>' ,
+          label : 'Agentes regionales  <a href="https://www.magyp.gob.ar/sitio/areas/ss_desarrollo_foresto_industrial/tecnicos_regionales" target="_blank" rel="noopener noreferrer"> Referencias </a> <span class="material-icons">︁</span>' ,
           //layer : L.WMS.tileLayer(magypURL, {
           //  'transparent' : true,
           //  'format' : 'image/png',
@@ -542,6 +550,7 @@ var baseLayersTree = [  {
             'transparent' : true,
             'format' : 'image/png',
             'tiled' : true,
+            attribution:  '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | <a href="http://www.ign.gob.ar/AreaServicios/Argenmap/IntroduccionV2" target="_blank">Instituto Geográfico Nacional</a> + <a href="http://www.osm.org/copyright" target="_blank">OpenStreetMap</a>',
             'layers' : 'ign:edafologia_pedregal'
             } )},
 
@@ -552,6 +561,7 @@ var baseLayersTree = [  {
             'transparent' : true,
             'format' : 'image/png',
             'tiled' : true,
+            attribution:  '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | <a href="http://www.ign.gob.ar/AreaServicios/Argenmap/IntroduccionV2" target="_blank">Instituto Geográfico Nacional</a> + <a href="http://www.osm.org/copyright" target="_blank">OpenStreetMap</a>',
             'layers' : 'ign:edafologia_arenal'
             } )},
             {
@@ -560,6 +570,7 @@ var baseLayersTree = [  {
             'transparent' : true,
             'format' : 'image/png',
             'tiled' : true,
+            attribution:  '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | <a href="http://www.ign.gob.ar/AreaServicios/Argenmap/IntroduccionV2" target="_blank">Instituto Geográfico Nacional</a> + <a href="http://www.osm.org/copyright" target="_blank">OpenStreetMap</a>',
             'layers' : 'ign:lineas_de_geomorfologia_CA010'
             } )},
             {
@@ -568,6 +579,7 @@ var baseLayersTree = [  {
             'transparent' : true,
             'format' : 'image/png',
             'tiled' : true,
+            attribution:  '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | <a href="http://www.ign.gob.ar/AreaServicios/Argenmap/IntroduccionV2" target="_blank">Instituto Geográfico Nacional</a> + <a href="http://www.osm.org/copyright" target="_blank">OpenStreetMap</a>',
             'layers' : 'ign:cartas_50000'
             } )},
             
@@ -578,6 +590,7 @@ var baseLayersTree = [  {
             'transparent' : true,
             'format' : 'image/png',
             'tiled' : true,
+            attribution:  '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | <a href="http://www.ign.gob.ar/AreaServicios/Argenmap/IntroduccionV2" target="_blank">Instituto Geográfico Nacional</a> + <a href="http://www.osm.org/copyright" target="_blank">OpenStreetMap</a>',
             'layers' : 'ign:puntos_de_puertos_y_muelles_BB005'
             } )}, 
 

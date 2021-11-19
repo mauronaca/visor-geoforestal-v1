@@ -10,7 +10,9 @@
 
   <!--Fuentes iconos de Google-->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <!--link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
   
   <!--Chroma js-->
   <script src="https://unpkg.com/chroma-js"></script>
@@ -65,7 +67,8 @@
     <div class="sidebar-tabs">
       <ul role="tablist">
         <li><a href="#home" role="tab"><i class="fa fa-home"></i></a></li>
-        <li><a href="#information" role="tab"><i class="fa fa-info-circle"></i></a></li>
+        <li><a href="#base-layer-info" role="tab"><i class="fas fa-map"></i></a></li>
+        <li><a href="#information" role="tab"><i class="fas fa-layer-group"></i></a></li>        
       </ul>          
     </div>
 
@@ -78,14 +81,35 @@
         <p></p>
       </div>
 
-      <div class="sidebar-pane" id="information">
+      <div class="sidebar-pane" id="base-layer-info">
         <h1 class="sidebar-header">
-          Información sobre la capa
+          Información sobre capa base
           <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
         </h1>
+        <div id="base-layer-info-content">
+          <!--Al inicio de la carga de la pagina, se muestra este texto-->
+          <!--sobre la capa base que se ve primero-->
+          <p>
+            <i>
+            Las capas base pueden ser utilizadas para contextualizar el resto de la información seleccionada. 
+            </i>
+          </p>
+          <tr>
+          <p>
+            Argenmap mapa base es un servicio libre y gratuito de mapas base desarrollado por el Instituto Geográfico Nacional para que los diferentes usuarios puedan embeber el mapa digital oficial de la República Argentina en sitios web o consumirlo desde una aplicación SIG. Este servicio se enmarca en el mandato de la Ley Nº 22.963 (Ley de la Carta)
+          </p>
+        </div>
       </div>
 
+      <div class="sidebar-pane" id="information">
+        <h1 class="sidebar-header">
+          Información sobre capas
+          <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+        </h1>
+      </div>    
+
     </div>
+    
   </div>
   
 
@@ -100,17 +124,28 @@
   <script type = "module">
     import {map} from './js/main.js';
 
+    let title = `
+    <div style="margin:0;">
+    <img src="./images/logo.png" style="position:relative; width:45%; height:23.5%; left:30%;">
+    </div>
+    `;
+
     let content = `
     
     <div>
-      <img src="./images/magyp-agricultura.png" style="position:relative; width:50%; height:20%; left:25%;">
-      <p style="font-awesome">  Para visualizar la información seleccione las capas dentro de los grupos temáticos y aguarde su carga. Este proceso puede demorar unos minuto. </p>
+      <p style="font-weight:bold; text-align:center; font-size:18px; margin-top:0;margin-bottom:0;">Bienvenidos al Visor Cartográfico de la Dirección Nacional de Desarrollo Foresto Industrial</p>
+
+      <p style="margin-bottom:0;font-awesome; text-align:center;">  Para visualizar la información seleccione las capas dentro de los grupos temáticos y aguarde su carga.</p>
+      <p style="margin-bottom:0;margin-top:0;font-size:14px; font-style:italic;text-align:center ;padding-bottom:0;"> Este proceso puede demorar unos minutos.</p>
+
+      <p style="margin-bottom:0;margin-top:0;font-size:14px; font-style:italic;text-align:center ;padding-bottom:0;">   <a href="https://youtu.be/ZtaTWRea2cg"target="_blank" rel="noopener noreferrer""> Video de Bienvenida.</a></p>
+
     </div>
     
     `;
 
     map.whenReady(() => {
-      var win =  L.control.window(map,{title:'Bienvenidos al Visor Cartográfico de la Dirección Nacional de Desarrollo Foresto Industrial', content:content}).show();
+      var win =  L.control.window(map,{title:title, content:content}).show();
     });
   </script>
   

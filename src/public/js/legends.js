@@ -23,10 +23,23 @@ L.Control.Legend = L.Control.extend({
 
   addLegend : function(map, e){
     $('.leaflet-container').css('cursor', 'progress');
+    
     try {
-      var layer_name = e.layer.wmsParams.layers;
 
-      if(this.options.layerName.indexOf(layer_name) != -1){
+      let layer_name;
+      let layer_name_noWms;
+
+      try{
+        layer_name = e.layer.wmsParams.layers;
+      } catch{
+
+      }
+      try{
+        layer_name_noWms = e.layer._name;
+      } catch{
+
+      }
+      if(this.options.layerName.indexOf(layer_name) != -1 || this.options.layerName.indexOf(layer_name_noWms) != -1){
         this.addTo(map);
       }
     } 
@@ -40,14 +53,32 @@ L.Control.Legend = L.Control.extend({
     try{
       let is_target_layer = false;
 
+      let layer_name;
+      let layer_name_noWms;
+
+      try{
+        layer_name = e.layer.wmsParams.layers;
+      } catch{
+
+      }
+      try{
+        layer_name_noWms = e.layer._name;
+      } catch{
+
+      }
+
+      console.log(layer_name_noWms);
+      console.log(this.options.layerName);
       map.eachLayer(layer => {
-        if(this.options.layerName.indexOf(layer.wmsParams.layers) != -1){
+        //console.log(layer.wmsParams.layers)
+        //console.log(`\n\nCapas que tiene que ser borrada: ${this.options.layerName}\n\n Capa que se esta procesando: ${layer.wmsParams.layers}`);
+        if(this.options.layerName.indexOf(layer_name) != -1 &&this.options.layerName.indexOf(layer_name_noWms) != -1 ){
           is_target_layer = true;
         }
       });
-
       if(!is_target_layer){
-      map.removeControl(this);
+        console.log('removing legendd')
+        map.removeControl(this);
       }
     }
     catch(error) {
@@ -64,7 +95,7 @@ L.control.legend = function(name, opts){
 
 var leyenda_cosecha = L.control.legend('Leyenda-1', {
   layerName : ['cosechados_2000_2019_Corrientes', 'cosechados_2000_2019_Misiones', 'cosechados_2000_2019_Entre_Rios'],
-  imgURL : "https://geoforestal.magyp.gob.ar/geoserver/dpf/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=cosechados_2000_2019_Corrientes",
+  imgURL : "../images/cosechados.png",
   position : "topright"
 });
 var leyenda_altura = L.control.legend('Leyenda-2', {
@@ -74,16 +105,16 @@ var leyenda_altura = L.control.legend('Leyenda-2', {
 });
 var leyenda3  = L.control.legend('Leyenda-3', {
   layerName : ['dpf:mapa_de_cambios_corrientes'],
-  imgURL : "https://geoforestal.magyp.gob.ar/geoserver/dpf/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=dpf:direccion_cambio",
+  imgURL : "../images/mapa_de_cambios_corrientes.png",
   position : "topright"
 });
 var leyenda4  = L.control.legend('Leyenda-4', {
   layerName : ['icesat_entre_rios_2021', 'icesat_misiones_2021', 'icesat_corrientes_2021'],
-  imgURL : "https://geoforestal.magyp.gob.ar/geoserver/dpf/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=dpf:icesat_entre_rios_2021",
+  imgURL : "../images/icesat_legend.png",
   position : "bottomright"
 });
 var leyenda5  = L.control.legend('Leyenda-5', {
-  layerName : ['macizos_forestales_publicacion_con_formato'],
+  layerName : ['dpf:macizos_forestales_publicacion_con_formato'],
   imgURL : "https://geoforestal.magyp.gob.ar/geoserver/dpf/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=macizos_forestales_publicacion_con_formato",
   position : "bottomright"
 });
