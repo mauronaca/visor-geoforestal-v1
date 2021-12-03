@@ -51,8 +51,9 @@ map.on('baselayerchange', (e) => {
   `;
   let world_cover_2020 = `
   
-  ESA WorldCover 10 m 2020 proporciona un nuevo producto de cobertura terrestre global de referencia con una resolución de 10 m para 2020 basado en datos de Sentinel-1 y 2. <a target="_blank" href = "https://worldcover2020.esa.int/"> Referencias </a>
+  ESA WorldCover 10 m 2020 proporciona un nuevo producto de cobertura terrestre global de referencia con una resolución de 10 m para 2020 basado en datos de Sentinel-1 y 2. <a target="_blank" href = "https://worldcover2020.esa.int/"> Referencias </a> y <a target="_blank" href = "https://worldcover2020.esa.int/viewer"> Viewer </a>
   
+
   `;
 
   let layers = { 

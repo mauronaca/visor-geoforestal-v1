@@ -227,7 +227,7 @@ var baseTreeMap = [
         },
         
        {
-            label : 'World Cover 2020',
+            label : 'ESA World Cover 2020',
             layer : L.WMS.tileLayer('https://services.terrascope.be/wms/v2', {
                 'tiled' : true,
                 'format': 'image/png',
@@ -335,7 +335,15 @@ var baseLayersTree = [  {
               'tiled' : true,
               'layers' : 'incendio_corrientes_agosto_2021  '
               })
-      }, 
+      }, {
+        label : 'Cicatriz- área quemada  Incendio noviembre Villa Olivari 2021  ',
+        layer : L.WMS.tileLayer('	https://geoforestal.magyp.gob.ar/geoserver/dpf/wms',{
+              'transparent' : true,
+              'format' : 'image/png',
+              'tiled' : true,
+              'layers' : 'incendio_corrientes_noviembre_villa_olivari_2021  '
+              })
+      },
       {
         label : 'Focos de Calor <span class="material-icons"></span>',
         children : [
@@ -389,7 +397,7 @@ var baseLayersTree = [  {
         },
 
         {
-          label : 'Macizos Forestales por grupos de especies ; <a href="https://drive.google.com/file/d/1aj5QaI_PCSwitHA554isFLjzvAdXtMy1/view?usp=sharing usp=sharing"target="_blank" rel="noopener noreferrer""> Metodología y &copy CITA </a><span class="material-icons">︁</span>' ,
+          label : 'Macizos Forestales por grupos de especies ' ,
           //layer : L.WMS.tileLayer(magypURL, {
           //  'transparent' : true,
           //  'format' : 'image/png',
@@ -408,7 +416,166 @@ var baseLayersTree = [  {
         }
       ]
     }, 
+    
+    
+      /*{
+        label : 'Focos de calor - VIIRS Fires - Past 7 Days',
+        layer : L.WMS.tileLayer('https://firms.modaps.eosdis.nasa.gov/wms/key/accd9ceab38b58bc58a7cd98e1c943ba/', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' : 'fires_viirs_7'})
+      }, 
+      {
+        label : 'Focos de calor - MODIS Fires - Past 7 Days',
+        layer : L.WMS.tileLayer('https://firms.modaps.eosdis.nasa.gov/wms/key/accd9ceab38b58bc58a7cd98e1c943ba/', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' : 'fires_modis_7'})
+      }*/
+      ]
+    },
+
+
+
+{
+  label : '<b>Productos</b><span class="material-icons">︁🌲︁🌳</span>',
+  collapsed : true,
+  children : [
+
     {
+      label : '<b> Alturas de plantaciones forestales </b>',
+      collapsed : true,
+      children : [
+{
+      label : '<b>Alturas modeladas <b><span class="material-icons">︁🛰︁</span><a href="https://mgaute14.users.earthengine.app/view/appalturaplantacionesforestalesentreros" target="_blank" rel="noopener noreferrer"> App</a> y  <a href="https://github.com/mg14github/Characterization-of-forest-plantations-based-on-information-derived-from-satellite-platforms-and-hig" usp=sharing" target="_blank" rel="noopener noreferrer"> Referencias <a'  ,
+      collapsed : true,
+      children : [ {
+        label : 'Modelo - Altura Plantaciones ( Norte y Centro de Entre Ríos)' ,
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' : 'altura_plantaciones_2'})
+      } , {
+        label : 'Modelo - Altura Plantaciones (Sur - Entre Ríos)' ,
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' : 'altura_plantaciones_1'})
+      } ]},
+
+
+      {
+      label : '<b> Datos LIDAR ICESAT 2 -ATL08   <b><span class="material-icons">︁🛰︁</span><a <a href="https://nsidc.org/data/ATL08" usp=sharing" target="_blank" rel="noopener noreferrer"> Referencias  <a'  ,
+      collapsed : true,
+      children : [
+
+      { label: '<b>NEA + DELTA<b>',
+        collapsed : true,
+      children : [
+      {
+        label : 'Altura de Canopeo -Entre Ríos',
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'icesat_entre_rios_2021'})
+      } ,{
+        label : 'Altura de Canopeo -Corrientes ' ,
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'icesat_corrientes_2021'})
+      } , {
+        label : 'Altura de Canopeo -Misiones ' ,
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'icesat_misiones_2021'})
+      },{
+        label : 'Altura de Canopeo -Delta ' ,
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'icesat_delta_2021'})
+      } ]} ,  
+
+      { label: '<b>NOA<b>',
+        collapsed : true,
+      children : [ 
+
+ {
+        label : 'Altura de Canopeo -Tucumán ' ,
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'icesat_tucuman_2021'})
+      } ,
+      {
+        label : 'Altura de Canopeo -Salta ' ,
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'icesat_salta_2021'})
+      }]}, 
+
+      { label: '<b>Patagonia<b>',
+        collapsed : true,
+      children : [
+
+{
+        label : 'Altura de Canopeo -Neuquén',
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'icesat_neuquen_2021'})
+      },{
+        label : 'Altura de Canopeo -Río Negro ' ,
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'icesat_rio_negro_2021'})
+      },
+      {
+        label : 'Altura de Canopeo -Chubut ' ,
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'icesat_chubut_2021'})
+      } ]}, 
+
+      { label: '<b>Centro <b>',
+        collapsed : true,
+      children : [
+      {
+        label : 'Altura de Canopeo -Córdoba ' ,
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'icesat_cordoba_2021'})
+      }]} ]} ]} ,    {
       label : '<b>Análisis de Cambios<b> <a href="https://drive.google.com/file/d/1lb24iBB-5UxGBTy-mb1uSORcR5bIlgPT/view?usp=sharing " target="_blank" rel="noopener noreferrer">Evaluación de Productos </a><span class="material-icons">︁🛰︁</span><a href="https://drive.google.com/file/d/1UopLIwRZdkKLA1VDoudkKmaoP9DnCDcm/view?usp=sharing" target="_blank" rel="noopener noreferrer">Evaluación de análisis de control de cambios</a>' ,
       collapsed : true,
       children : [
@@ -438,7 +605,17 @@ var baseLayersTree = [  {
             attribution: '&copy; <a href="https://www.magyp.gob.ar/sitio/areas/ss_desarrollo_foresto_industrial/">Área SIG e Inventario Forestal</a> contributors',
             'tiled' : true,
             'layers' : 'cosechados_2000_2019_Entre_Rios'} )},
-            { 
+            
+        { label: '<b>Estado actual de las plantaciones</a><b> <a href="https://mgaute14.users.earthengine.app/view/estadosituacionplantacionesforestalesnea" target="_blank" rel="noopener noreferrer"> <b>App<b> Estado de situación NEA 2021 </a>, <a href="https://mgaute14.users.earthengine.app/view/estadoydirecciondel-cambioplantacionesforestalescorrient" target="_blank" rel="noopener noreferrer"> <b>App<b> Dirección de cambios. Corrientes 2021 </a>'   , 
+        children: [{
+        label : ' Corrientes diciembre - 2021)' ,
+          layer : L.WMS.tileLayer(magypURL, {
+            'transparent' : true,
+            'format' : 'image/png',
+            attribution: '&copy; <a href="https://www.magyp.gob.ar/sitio/areas/ss_desarrollo_foresto_industrial/">Área SIG e Inventario Forestal</a> contributors',
+            'tiled' : true,
+            'layers' : 'dpf:mapa_de_cambios_corrientes'}, )
+        },{ 
         label : 'Aprovechamientos forestales - Corrientes Agosto (2020-2021)' ,
           layer : L.WMS.tileLayer(magypURL, {
             'transparent' : true,
@@ -446,19 +623,10 @@ var baseLayersTree = [  {
             attribution: '&copy; <a href="https://www.magyp.gob.ar/sitio/areas/ss_desarrollo_foresto_industrial/">Área SIG e Inventario Forestal</a> contributors',
             'tiled' : true,
             'layers' : 'aprovechamientos_forestales_corrientes_2020_2021'}, )
-        } ,
-        { label: '<b>Estado actual de las plantaciones</a><b>', 
-        children: [{
-        label : ' Corrientes Agosto (2020-2021)',
-          layer : L.WMS.tileLayer(magypURL, {
-            'transparent' : true,
-            'format' : 'image/png',
-            attribution: '&copy; <a href="https://www.magyp.gob.ar/sitio/areas/ss_desarrollo_foresto_industrial/">Área SIG e Inventario Forestal</a> contributors',
-            'tiled' : true,
-            'layers' : 'dpf:mapa_de_cambios_corrientes'}, )
-        } ]}]
-    }
-    , 
+        }  ]}]
+    } ]} ,
+  
+      
       /*{
         label : 'Focos de calor - VIIRS Fires - Past 7 Days',
         layer : L.WMS.tileLayer('https://firms.modaps.eosdis.nasa.gov/wms/key/accd9ceab38b58bc58a7cd98e1c943ba/', {
@@ -475,70 +643,7 @@ var baseLayersTree = [  {
           'tiled' : true,
           'layers' : 'fires_modis_7'})
       }*/
-      ]
-    },
-{
-      label : '<b>Productos<b><span class="material-icons">︁ </span><a href="https://youtu.be/3a1RJmHuFkI usp=sharing" target="_blank" rel="noopener noreferrer"> Video  </a><span class="material-icons">︁🛰︁</span><a href="https://mgaute14.users.earthengine.app/view/apptfgautecaracterizacionplantacionesforestales" target="_blank" rel="noopener noreferrer"> App</a>'  ,
-      collapsed : true,
-      children : [ {
-        label : 'Altura Plantaciones ( Norte y Centro de Entre Ríos) MIN: 0 MAX: 50 m <a href="https://github.com/mg14github/Characterization-of-forest-plantations-based-on-information-derived-from-satellite-platforms-and-hig" usp=sharing" target="_blank" rel="noopener noreferrer"> Referencias  <a' ,
-        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
-          'transparent' : true,
-          'format' : 'image/png',
-          'tiled' : true,
-          'layers' : 'altura_plantaciones_2'})
-      } , {
-        label : 'Altura Plantaciones (Sur - Entre Ríos) MIN: 0 MAX: 50 m <a href="https://github.com/mg14github/Characterization-of-forest-plantations-based-on-information-derived-from-satellite-platforms-and-hig" usp=sharing" target="_blank" rel="noopener noreferrer"> Referencias  <a' ,
-        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
-          'transparent' : true,
-          'format' : 'image/png',
-          'tiled' : true,
-          'layers' : 'altura_plantaciones_1'})
-      } 
-      ,{
-        label : 'Altura de Canopeo -Entre Ríos - ICESAT 2 - Sensor ATL08 <a href="https://nsidc.org/data/ATL08" usp=sharing" target="_blank" rel="noopener noreferrer"> Referencias  <a' ,
-        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
-          'transparent' : true,
-          'format' : 'image/png',
-          'tiled' : true,
-          'layers' :
-          'icesat_entre_rios_2021'})
-      } ,{
-        label : 'Altura de Canopeo -Corrientes - ICESAT 2 - Sensor ATL08 <a href="https://nsidc.org/data/ATL08" usp=sharing" target="_blank" rel="noopener noreferrer"> Referencias  <a' ,
-        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
-          'transparent' : true,
-          'format' : 'image/png',
-          'tiled' : true,
-          'layers' :
-          'icesat_corrientes_2021'})
-      } , {
-        label : 'Altura de Canopeo -Misiones - ICESAT 2 - Sensor ATL08 <a href="https://nsidc.org/data/ATL08" usp=sharing" target="_blank" rel="noopener noreferrer"> Referencias  <a' ,
-        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
-          'transparent' : true,
-          'format' : 'image/png',
-          'tiled' : true,
-          'layers' :
-          'icesat_misiones_2021'})
-      } 
-      /*{
-        label : 'Focos de calor - VIIRS Fires - Past 7 Days',
-        layer : L.WMS.tileLayer('https://firms.modaps.eosdis.nasa.gov/wms/key/accd9ceab38b58bc58a7cd98e1c943ba/', {
-          'transparent' : true,
-          'format' : 'image/png',
-          'tiled' : true,
-          'layers' : 'fires_viirs_7'})
-      }, 
-      {
-        label : 'Focos de calor - MODIS Fires - Past 7 Days',
-        layer : L.WMS.tileLayer('https://firms.modaps.eosdis.nasa.gov/wms/key/accd9ceab38b58bc58a7cd98e1c943ba/', {
-          'transparent' : true,
-          'format' : 'image/png',
-          'tiled' : true,
-          'layers' : 'fires_modis_7'})
-      }*/
-      ]
-    }
-    ,
+      
     
   {
   
@@ -599,24 +704,75 @@ var baseLayersTree = [  {
     collapsed : true,
     children :  
       [{
-        label : 'Vuelo Corrientes- Resistencia 2016',
+        label : 'Bariloche 2014',
         layer : L.WMS.tileLayer('	https://imagenes.ign.gob.ar/geoserver/ortomosaicos_fotogrametria/ows' ,{
             'transparent' : true,
             'format' : 'image/png',
             'tiled' : true,
              attribution: '&copy; <a href="https://www.ign.gob.ar" >Instituto Geográfico Nacional </a> contributors',
-            'layers' : 'corrientes-resistencia_2016' }),
+            'layers' : 'bariloche_1.2_2014' }),
       },
        {
-        label : 'Vuelo Zárate- Campana 2015',
+        label : 'San Martín de los Andes 2014',
         layer : L.WMS.tileLayer('	https://imagenes.ign.gob.ar/geoserver/ortomosaicos_fotogrametria/ows',{
             'transparent' : true,
             'format' : 'image/png',
             'tiled' : true,
              attribution: '&copy; <a href="https://www.ign.gob.ar" >Instituto Geográfico Nacional </a> contributors', 
-            'layers' : 'zarate_campana_2015' })
+            'layers' : 'bariloche_1.1_2014' })
       
-    }
+    }, 
+    {
+        label : 'Valle_del_rio_negro_2014_2.5',
+        layer : L.WMS.tileLayer('	https://imagenes.ign.gob.ar/geoserver/ortomosaicos_fotogrametria/ows',{
+            'transparent' : true,
+            'format' : 'image/png',
+            'tiled' : true,
+             attribution: '&copy; <a href="https://www.ign.gob.ar" >Instituto Geográfico Nacional </a> contributors', 
+            'layers' : 'valle_del_rio_negro_2014_2.5' })
+      
+    }, 
+    {
+        label : 'Valle_del_rio_negro_2014_2.4',
+        layer : L.WMS.tileLayer('	https://imagenes.ign.gob.ar/geoserver/ortomosaicos_fotogrametria/ows',{
+            'transparent' : true,
+            'format' : 'image/png',
+            'tiled' : true,
+             attribution: '&copy; <a href="https://www.ign.gob.ar" >Instituto Geográfico Nacional </a> contributors', 
+            'layers' : 'valle_del_rio_negro_2014_2.4' })
+      
+    }, 
+    {
+        label : 'Valle_del_rio_negro_2014_2.3',
+        layer : L.WMS.tileLayer('	https://imagenes.ign.gob.ar/geoserver/ortomosaicos_fotogrametria/ows',{
+            'transparent' : true,
+            'format' : 'image/png',
+            'tiled' : true,
+             attribution: '&copy; <a href="https://www.ign.gob.ar" >Instituto Geográfico Nacional </a> contributors', 
+            'layers' : 'valle_del_rio_negro_2014_2.3' })
+      
+    }, 
+    {
+        label : 'Valle_del_rio_negro_2014_2.2',
+        layer : L.WMS.tileLayer('	https://imagenes.ign.gob.ar/geoserver/ortomosaicos_fotogrametria/ows',{
+            'transparent' : true,
+            'format' : 'image/png',
+            'tiled' : true,
+             attribution: '&copy; <a href="https://www.ign.gob.ar" >Instituto Geográfico Nacional </a> contributors', 
+            'layers' : 'valle_del_rio_negro_2014_2.2' })
+      
+    }, 
+    {
+        label : 'Valle_del_rio_negro_2014_2.1',
+        layer : L.WMS.tileLayer('	https://imagenes.ign.gob.ar/geoserver/ortomosaicos_fotogrametria/ows',{
+            'transparent' : true,
+            'format' : 'image/png',
+            'tiled' : true,
+             attribution: '&copy; <a href="https://www.ign.gob.ar" >Instituto Geográfico Nacional </a> contributors', 
+            'layers' : 'valle_del_rio_negro_2014_2.1' })
+      
+    }, 
+
   ]} /*, //Ordenamientos territoriales / Ocultas
   // Al comentar las capas que siguen abajo hay que cerrar con ]; 
      {
