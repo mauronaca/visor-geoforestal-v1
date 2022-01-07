@@ -10,6 +10,14 @@ export var map = new L.map('mapid', {
 }).
 setView([init_lat, init_long], 5);
 
+try{
+  let default_layer = baseLayersTree[2].children[0].children[0].layer;
+  console.log(baseLayersTree[2].children[0].children[0].layer)
+  default_layer.addTo(map);
+} catch(error) {
+  console.log(error)
+}
+
 // Este plugin esta bueno para los controles: https://github.com/jjimenezshaw/Leaflet.Control.Layers.Tree
 L.control.layers.tree(baseTreeMap, baseLayersTree).addTo(map); 
 //L.control.layers.tree(baseTreeLayersWithInfo).addTo(map);

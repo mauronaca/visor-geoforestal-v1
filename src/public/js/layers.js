@@ -127,7 +127,7 @@ let macizos_layer = new MySource(magypURL, {
     'tiled' : true,
     'format' : 'image/png',
     'info_format': 'text/plain',
-    'identify' : true
+    'identify' : true, 
 }).getLayer('dpf:macizos_forestales_sin_categorizacion_por_especies')
 
 let cortinas_layer = new MySource(magypURL, {
@@ -345,6 +345,15 @@ var baseLayersTree = [  {
               })
       },
       {
+        label : 'Cicatriz- área quemada  Incendio diciembre Aluminé 2021  ',
+        layer : L.WMS.tileLayer('	https://geoforestal.magyp.gob.ar/geoserver/dpf/wms',{
+              'transparent' : true,
+              'format' : 'image/png',
+              'tiled' : true,
+              'layers' : 'incendio_alumine_diciembre_2021'
+              })
+      },
+      {
         label : 'Focos de Calor <span class="material-icons"></span>',
         children : [
           {
@@ -473,7 +482,7 @@ var baseLayersTree = [  {
       collapsed : true,
       children : [
 
-      { label: '<b>NEA + DELTA<b>',
+      { label: '<b>NEA + DELTA + SUDESTE <b>',
         collapsed : true,
       children : [
       {
@@ -484,7 +493,16 @@ var baseLayersTree = [  {
           'tiled' : true,
           'layers' :
           'icesat_entre_rios_2021'})
-      } ,{
+      } , {
+        label : 'Altura de Canopeo -Buenos Aires',
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'icesat_sudeste_2021'})
+      } ,
+      {
         label : 'Altura de Canopeo -Corrientes ' ,
         layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
           'transparent' : true,
@@ -575,7 +593,108 @@ var baseLayersTree = [  {
           'tiled' : true,
           'layers' :
           'icesat_cordoba_2021'})
-      }]} ]} ]} ,    {
+      }]} ]}, 
+      {
+      label : '<b> Datos LIDAR GEDI 2    <b><span class="material-icons">︁🛰︁</span><a <a href="https://gedi.umd.edu/data/products/" target="_blank" rel="noopener noreferrer"> Referencias  <a'  ,
+      collapsed : true,
+      children : [
+
+      { label: '<b>NEA + DELTA + SUDESTE <b>',
+        collapsed : true,
+      children : [
+      {
+        label : 'Altura de Canopeo GEDI V2. (rh95) 2020-2021-Entre Ríos',
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'puntos_GEDI_2020_2021_entre_rios'})
+      },
+      {
+        label : 'Altura de Canopeo GEDI V2. (rh95) 2020-2021-Corrientes',
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'puntos_gedi_2020_2021_corrientes'})
+      }, 
+      {
+        label : 'Altura de Canopeo GEDI V2. (rh95) 2020-2021-Misiones',
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'puntos_gedi_2020_2021_misiones'})
+      }
+      ]}, 
+      { label: '<b> Patagonia <b>',
+        collapsed : true,
+      children : [
+      {
+        label : 'Altura de Canopeo GEDI V2. (rh95) 2020-2021-Neuquén',
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'Neuquen_GEDI'})
+      },
+      {
+        label : 'Altura de Canopeo GEDI V2. (rh95) 2020-2021-Chubut',
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'Chubut_GEDI'})
+      } ]}, 
+
+      { label: '<b> Centro <b>',
+        collapsed : true,
+      children : [
+      {
+        label : 'Altura de Canopeo GEDI V2. (rh95) 2020-2021-Córdoba',
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'Cordoba_GEDI'})
+      } ]}, 
+      
+      { label: '<b> NOA <b>',
+        collapsed : true,
+      children : [
+      {
+        label : 'Altura de Canopeo GEDI V2. (rh95) 2020-2021-Jujuy',
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'Jujuy_GEDI'})
+      } ]}, 
+      
+      { label: '<b> CUYO <b>',
+        collapsed : true,
+      children : [
+      {
+        label : 'Altura de Canopeo GEDI V2. (rh95) 2020-2021-Mendoza',
+        layer : L.WMS.tileLayer('https://geoforestal.magyp.gob.ar/geoserver/dpf/wms', {
+          'transparent' : true,
+          'format' : 'image/png',
+          'tiled' : true,
+          'layers' :
+          'Mendoza_GEDI'})
+      } ]}
+      ]} 
+    
+      ]} ,   
+
+       {
       label : '<b>Análisis de Cambios<b> <a href="https://drive.google.com/file/d/1lb24iBB-5UxGBTy-mb1uSORcR5bIlgPT/view?usp=sharing " target="_blank" rel="noopener noreferrer">Evaluación de Productos </a><span class="material-icons">︁🛰︁</span><a href="https://drive.google.com/file/d/1UopLIwRZdkKLA1VDoudkKmaoP9DnCDcm/view?usp=sharing" target="_blank" rel="noopener noreferrer">Evaluación de análisis de control de cambios</a>' ,
       collapsed : true,
       children : [
@@ -606,7 +725,7 @@ var baseLayersTree = [  {
             'tiled' : true,
             'layers' : 'cosechados_2000_2019_Entre_Rios'} )},
             
-        { label: '<b>Estado actual de las plantaciones</a><b> <a href="https://mgaute14.users.earthengine.app/view/estadosituacionplantacionesforestalesnea" target="_blank" rel="noopener noreferrer"> <b>App<b> Estado de situación NEA 2021 </a>, <a href="https://mgaute14.users.earthengine.app/view/estadoydirecciondel-cambioplantacionesforestalescorrient" target="_blank" rel="noopener noreferrer"> <b>App<b> Dirección de cambios. Corrientes 2021 </a>'   , 
+        { label: '<b>Estado actual de las plantaciones</a><b> <a href="https://mgaute14.users.earthengine.app/view/appestadosplantacionesnea" target="_blank" rel="noopener noreferrer"> <b>App<b> Estado de situación NEA 2021 </a>, <a href="https://mgaute14.users.earthengine.app/view/estadoydirecciondel-cambioplantacionesforestalescorrient" target="_blank" rel="noopener noreferrer"> <b>App<b> Dirección de cambios. Corrientes 2021 </a>'   , 
         children: [{
         label : ' Corrientes diciembre - 2021)' ,
           layer : L.WMS.tileLayer(magypURL, {
@@ -700,6 +819,21 @@ var baseLayersTree = [  {
             } )}, 
 
             ]},{
+    label : '<b> Imágenes de Alta Resolución Espacial</b>',
+    collapsed : true,
+    children :  
+      [{
+        label : 'DELTA',
+        layer : L.WMS.tileLayer('	https://api.ellipsis-drive.com/v1/wms/5fe5a1ef-dfa3-43f6-96d7-7c439cb7cba4' ,{
+            'transparent' : true,
+            'format' : 'image/png',
+            'tiled' : true,
+             attribution: '&copy; <a href="https://satellogic.com/" >Satellogic</a> contributors',
+            'layers' : 'f770381d-5e24-419b-859b-fa26320d105c_625b5a87-5b3b-4c73-8dba-82b61e181d70' }),
+      }]},
+            
+            
+            {
     label : '<b> Vuelos-IGN</b>',
     collapsed : true,
     children :  
@@ -882,6 +1016,8 @@ var baseTreeLayersWithInfo = [{
     }
   ]
 }];
+
+
 
 //magypSource.getLayer('dpf:macizos_forestales_publicacion').addTo(map);
 

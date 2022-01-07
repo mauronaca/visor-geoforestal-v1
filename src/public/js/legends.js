@@ -109,7 +109,7 @@ var leyenda3  = L.control.legend('Leyenda-3', {
   position : "topright"
 });
 var leyenda4  = L.control.legend('Leyenda-4', {
-  layerName : ['icesat_entre_rios_2021', 'icesat_misiones_2021', 'icesat_corrientes_2021','icesat_delta_2021', 'icesat_chubut_2021','icesat_salta_2021', 'icesat_tucuman_2021', 'icesat_cordoba_2021',  'icesat_rio_negro_2021', 'icesat_neuquen_2021'],
+  layerName : ['icesat_entre_rios_2021', 'icesat_misiones_2021', 'icesat_corrientes_2021','icesat_delta_2021', 'icesat_chubut_2021','icesat_salta_2021', 'icesat_tucuman_2021', 'icesat_cordoba_2021',  'icesat_rio_negro_2021', 'icesat_neuquen_2021', 'icesat_sudeste_2021'],
   imgURL : "../images/icesat_legend.png",
   position : "bottomright"
 });
@@ -118,6 +118,7 @@ var leyenda5  = L.control.legend('Leyenda-5', {
   imgURL : "https://geoforestal.magyp.gob.ar/geoserver/dpf/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=macizos_forestales_publicacion_con_formato",
   position : "bottomright"
 });
+
 /*
 var leyenda6  = L.control.legend('Leyenda-6', {
   layerName : ['icesat_misiones_2021'],
@@ -131,4 +132,4 @@ var leyenda7  = L.control.legend('Leyenda-7', {
 });
 */
 
-export{leyenda_cosecha, leyenda_altura, leyenda3, leyenda4, leyenda5};
+export{leyenda_cosecha, leyenda_altura, leyenda3, leyenda4, leyenda5, };
